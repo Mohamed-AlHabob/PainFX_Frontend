@@ -19,7 +19,7 @@ return (
       username={"mohamed"}
     />
 
-    <PostFeed channelid={"55"} userid={"55"} />
+    <PostFeed/>
   </div>
   <div className="col-span-1 hidden lg:inline relative py-5">
     {/* <GroupSideWidget light /> */}

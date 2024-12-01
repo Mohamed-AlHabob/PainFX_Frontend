@@ -3,7 +3,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { toast } from 'sonner';
 import { extractErrorMessage } from '../error-handling';
-import { setAuth } from '@/redux/features-slices/authSlice';
+import { setAuth } from '@/redux/features-slices/auth/authSlice';
 
 export default function useSocialAuth(authenticate: any, provider: string) {
   const dispatch = useAppDispatch();

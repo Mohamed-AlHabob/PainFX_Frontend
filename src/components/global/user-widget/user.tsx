@@ -6,7 +6,7 @@ import { Logout, Settings } from "@/components/icons";
 import Link from "next/link";
 
 import { DropDown } from "../drop-down";
-import { useLogoutMutation, useRetrieveUserQuery } from "@/redux/features-slices/authApiSlice";
+import { useLogoutMutation, useRetrieveUserQuery } from "@/redux/features-slices/auth/authApiSlice";
 import { useRouter } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import { ModeToggle } from "@/components/mode-toggle";

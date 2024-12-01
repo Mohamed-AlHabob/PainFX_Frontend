@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch } from '@/redux/hooks';
 import { toast } from 'sonner';
 import { extractErrorMessage } from '../error-handling';
-import { finishInitialLoad, setAuth } from '@/redux/features-slices/authSlice';
-import { useVerifyMutation } from '@/redux/features-slices/authApiSlice';
+import { finishInitialLoad, setAuth } from '@/redux/features-slices/auth/authSlice';
+import { useVerifyMutation } from '@/redux/features-slices/auth/authApiSlice';
 
 export default function useVerify() {
   const dispatch = useAppDispatch();

@@ -1,71 +1,47 @@
-"use client"
+"use client";
 
+import InfiniteScrollObserver from "@/components/global/infinite-scroll";
+import { PostCard } from "./post-card";
+import { useGetPostsQuery } from "@/redux/features-slices/booking/PostApiSlice";
 
-import InfiniteScrollObserver from "@/components/global/infinite-scroll"
-import { PaginatedPosts } from "../paginates-posts"
-import { PostCard } from "./post-card"
+export const PostFeed = () => {
+  const { data: posts, isLoading, error } = useGetPostsQuery("");
 
-type PostFeedProps = {
-  channelid: string
-  userid: string
-}
+  if (isLoading) {
+    return <p>Loading posts...</p>;
+  }
 
-export const PostFeed = ({ channelid, userid }: PostFeedProps) => {
-  // const { posts } = data as {
-  //   posts: ({
-  //     likes: {
-  //       id: string
-  //       userId: string
-  //     }[]
-  //     channel: {
-  //       name: string
-  //     }
-  //     _count: {
-  //       likes: number
-  //       comments: number
-  //     }
-  //     author: {
-  //       firstname: string
-  //       lastname: string
-  //       image: string | null
-  //     }
-  //   } & {
-  //     id: string
-  //     createdAt: Date
-  //     title: string | null
-  //     htmlContent: string | null
-  //     jsonContent: string | null
-  //     content: string
-  //     authorId: string
-  //     channelId: string
-  //   })[]
-  // }
-  return  (
+  if (error) {
+    return <p>Failed to load posts. Please try again later.</p>;
+  }
+
+  console.log(posts.results);
+
+  return (
     <>
-      {/* {posts.map((post) => ( */}
+      {posts && Array.isArray(posts) && posts.map((post) => (
         <PostCard
-          key={"post.id"}
-          channelname={"post.channel.name!"}
-          title={"post.title!"}
-          html={"post.htmlContent!"}
-          username={"post.author.firstname + post.author.lastname"}
-          userimage={"./file.svg"}
-          likes={2}
-          comments={3}
-          postid={"post.id"}
-          likedUser={"12"}
-          userid={userid}
-          likeid={"12"}
+          key={post.id}
+          channelname={post.c || "Unknown Channel"}
+          title={post.results.title || "Untitled Post"}
+          content={post.content || "No content available"}
+          userimage={post.author?.profileImage || "/default-avatar.svg"}
+          likes={post.likesCount || 0}
+          comments={post.commentsCount || 0}
+          postid={post.id}
+          likedUser={post.likedUser ? "true" : "false"}
+          userid={post.author?.id || "Unknown User"}
+          likeid={post.likeId || null}
+          userId={post.author?.id || ""}
+          first_name={post.results.doctor?.user?.first_name || "First Name"}
+          last_name={post.doctor?.user?.last_name || "Last Name"}
+          specialization={post.doctor?.specialization || "Specialization not provided"}
         />
-      {/* ))} */}
+      ))}
       <InfiniteScrollObserver
         action="POSTS"
         loading="POST"
-        identifier={channelid}
-        paginate={2}
-      >
-        <PaginatedPosts userid={userid} />
-      </InfiniteScrollObserver>
+        paginate={2} children={undefined}      />
     </>
-  ) 
-}
+  );
+};

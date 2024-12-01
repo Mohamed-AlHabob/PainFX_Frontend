@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import authReducer from "./features-slices/authSlice";
+import authReducer from "./features-slices/auth/authSlice";
 import { apiSlice } from './services/apiSlice';
 import infiniteScrollReducer from "./features-slices/infinite-scroll-slice";
 

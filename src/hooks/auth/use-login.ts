@@ -6,9 +6,8 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { extractErrorMessage } from '../error-handling';
-
-import { setAuth } from '@/redux/features-slices/authSlice';
-import { useLoginMutation } from '@/redux/features-slices/authApiSlice';
+import { setAuth } from '@/redux/features-slices/auth/authSlice';
+import { useLoginMutation } from '@/redux/features-slices/auth/authApiSlice';
 import { SignInSchema } from '@/schemas/auth';
 
 export default function useLogin() {

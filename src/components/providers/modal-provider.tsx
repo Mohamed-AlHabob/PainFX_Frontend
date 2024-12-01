@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import DeleteDocumentModal from "../modals/create-video";
 import ChangeStatusModal from "../modals/conform-change-status";
 
 
@@ -18,7 +17,6 @@ export const ModalProvider = () => {
 
   return (
     <>
- <DeleteDocumentModal />
  <ChangeStatusModal />
     </>
   )

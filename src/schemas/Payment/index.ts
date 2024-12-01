@@ -1,19 +1,22 @@
+// src/schemas/payment.ts
+
 import { z } from 'zod';
+import { userProfileSchema } from '../user-profile';
+import { paymentMethodSchema } from '../PaymentMethod';
 
-// Payment Method and Status Choices
-const PaymentMethod = z.enum(['credit_card', 'bank_transfer', 'paypal']);
-const PaymentStatus = z.enum(['successful', 'failed']);
 
-// Payment Schema
-export const PaymentSchema = z.object({
-  id: z.number().int(), // Primary key
-  invoiceId: z.number().int(), // Foreign key to Invoice
-  amount: z.number().positive().max(1000000), // Ensure valid payment amount
-  paymentDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format (YYYY-MM-DD)"),
-  paymentMethod: PaymentMethod,
-  status: PaymentStatus,
+export const PaymentStatusEnum = z.enum(['pending', 'completed', 'failed']);
+
+export const paymentSchema = z.object({
+  id: z.string().uuid(),
+  user: userProfileSchema,
+  amount: z.number().nonnegative(),
+  method: paymentMethodSchema,
+  paymentStatus: PaymentStatusEnum,
+  relatedObjectId: z.string().uuid().optional(), // Adjust as needed
+  createdAt: z.string().datetime(),
 });
 
-// TypeScript Type
-export type Payment = z.infer<typeof PaymentSchema>;
+export const paymentListSchema = z.array(paymentSchema);
 
+export type Payment = z.infer<typeof paymentSchema>;

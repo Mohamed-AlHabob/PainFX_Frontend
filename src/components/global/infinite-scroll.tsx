@@ -6,7 +6,6 @@ import Skeleton from "./skeleton"
 type Props = {
   action: "GROUPS" | "POSTS"
   children: React.ReactNode
-  identifier: string
   paginate: number
   search?: boolean
   loading?: "POST"
@@ -15,7 +14,6 @@ type Props = {
 const InfiniteScrollObserver = ({
   action,
   children,
-  identifier,
   paginate,
   search,
   loading,

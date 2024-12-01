@@ -5,17 +5,17 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/h
 import { CalendarDays, MapPin } from "lucide-react";
 
 type UserCardProps = {
+  id: string;
   name: string;
-  email: string;
+  email?: string;
   phone_number?: string;
   address?: string;
   avatar?: string;
-  joined: string;
+  joined?: string;
   bio?: string;
   topic?: string;
   Optional?: string;
   role?: string;
-  id: string;
 };
 
 export default function UserCard({
@@ -56,7 +56,7 @@ export default function UserCard({
                 <div className="flex items-center pt-2">
                   <CalendarDays className="mr-2 h-4 w-4 opacity-70" />
                   <span className="text-xs text-zinc-400">Joined
-                    {new Date(joined).toLocaleTimeString([], {
+                    {new Date(joined || "12-2-2024").toLocaleTimeString([], {
                       month: '2-digit',
                       year: '2-digit',
                       hour12: true,
@@ -93,7 +93,7 @@ export default function UserCard({
                 <div className="flex items-center pt-2">
                   <CalendarDays className="mr-2 h-4 w-4 opacity-70" />
                   <span className="text-xs text-zinc-400">Joined
-                    {new Date(joined).toLocaleTimeString([], {
+                    {new Date(joined || "12-2-2024").toLocaleTimeString([], {
                       month: '2-digit',
                       year: '2-digit',
                       hour12: true,
@@ -112,11 +112,11 @@ export default function UserCard({
         </div>
         <div className="flex items-center gap-2 text-sm">
           <Link className="text-zinc-400 hover:text-zinc-300" href="#">
-            {phone_number || "+201094001001"}
+            {phone_number || ""}
           </Link>
           <span className="text-zinc-600">•</span>
           <Link className="text-zinc-400 hover:text-zinc-300 truncate overflow-hidden text-ellipsis whitespace-nowrap" href="#">
-            {email || "expole@gmail.com"}
+            {email || ""}
           </Link>
           <Badge variant="secondary" className="bg-zinc-800 text-zinc-300 hover:bg-zinc-700">
             {role}

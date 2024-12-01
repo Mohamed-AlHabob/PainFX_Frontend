@@ -4,11 +4,15 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { PostAuthor } from "./post-author"
 import { Interactions } from "./interactions"
+import UserCard from "@/components/global/user-widget/user-avatar"
 
 type PostCardProps = {
+  userId: string
   userimage?: string
-  username?: string
-  html: string
+  first_name?: string
+  last_name?: string
+  specialization?: string
+  content: string
   channelname: string
   title: string
   likes: number
@@ -22,9 +26,12 @@ type PostCardProps = {
 
 export const PostCard = ({
   userimage,
-  username,
-  html,
+  userId,
+  last_name,
+  first_name,
+  specialization,
   channelname,
+  content,
   title,
   likes,
   comments,
@@ -38,15 +45,11 @@ export const PostCard = ({
   return (
     <Card className="border-themeGray bg-[#1A1A1D] first-letter:rounded-2xl overflow-hidden">
       <CardContent className="p-3 flex flex-col gap-y-6 items-start">
-        <PostAuthor
-          image={userimage}
-          username={username}
-          channel={channelname}
-        />
+        <UserCard name={`${first_name} ${last_name}`} avatar={userimage || ""} id={userId} role={specialization} />
         <Link href={`${pathname}/${postid}`} className="w-full">
           <div className="flex flex-col gap-y-3">
             <h2 className="text-2xl">{title}</h2>
-            {/* <HtmlParser html={html} /> */}
+            {content}
           </div>
         </Link>
       </CardContent>

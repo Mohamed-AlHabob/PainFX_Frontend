@@ -1,12 +1,12 @@
-import { Case } from "@/schemas";
-import { CaseRequest } from "@/schemas/Case";
+
+import { Clinic, Doctor } from "@/schemas";
 import { create } from "zustand";
 
 export type ModalType = "createServer" | "deletedocument" |"ChangeStatus";
 
 interface ModalData {
-  Case?: Case;
-  Caserequest?: CaseRequest;
+  Doctor?: Doctor;
+  Clinic?: Clinic;
 }
 
 interface ModalStore {
