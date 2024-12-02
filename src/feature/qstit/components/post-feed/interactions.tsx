@@ -1,5 +1,7 @@
 
+import { Like, Unlike } from "@/components/icons"
 import { cn } from "@/lib/utils"
+import { useLikePostMutation } from "@/redux/features-slices/booking/LikeApiSlice"
 import { MessageCircle } from "lucide-react"
 import { v4 as uuidv4 } from "uuid"
 
@@ -24,7 +26,7 @@ export const Interactions = ({
   likeid,
   page,
 }: InteractionsProps) => {
-
+  const [mutate, { isLoading }] = useLikePostMutation()
   return (
     <div
       className={cn(
@@ -34,9 +36,9 @@ export const Interactions = ({
     >
       <div className="flex gap-5 text-[#757272] text-sm">
         <span className="flex gap-1 justify-center items-center">
-          {/* {optimisitc ? (
+          {optimisitc ? (
             <Unlike />
-          ) : isPending ? (
+          ) : isLoading ? (
             <span className="cursor-pointer">
               {userid === likedUser ? <Unlike /> : <Like />}
             </span>
@@ -44,6 +46,7 @@ export const Interactions = ({
             <span
               onClick={() =>
                 mutate({
+                  postId: id,
                   likeid: likeid!,
                 })
               }
@@ -63,7 +66,7 @@ export const Interactions = ({
               <Unlike />
             </span>
           )}
-          {isPending ? (likedUser === userid ? likes - 1 : likes + 1) : likes}*/}
+          {isLoading ? (likedUser === userid ? likes - 1 : likes + 1) : likes}
           </span> 
 
         <span className="flex gap-1 justify-center items-center">

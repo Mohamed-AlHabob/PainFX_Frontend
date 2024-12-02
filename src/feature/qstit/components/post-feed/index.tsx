@@ -3,19 +3,20 @@
 import InfiniteScrollObserver from "@/components/global/infinite-scroll";
 import { PostCard } from "./post-card";
 import { useGetPostsQuery } from "@/redux/features-slices/booking/PostApiSlice";
+import { Loader } from "@/components/global/loader";
 
 export const PostFeed = () => {
   const { data: posts, isLoading, error } = useGetPostsQuery("");
 
   if (isLoading) {
-    return <p>Loading posts...</p>;
+    return <Loader loading={isLoading}/>;
   }
 
   if (error) {
     return <p>Failed to load posts. Please try again later.</p>;
   }
 
-  console.log(posts.results);
+  console.log(posts);
 
   return (
     <>
@@ -25,7 +26,7 @@ export const PostFeed = () => {
           channelname={post.c || "Unknown Channel"}
           title={post.results.title || "Untitled Post"}
           content={post.content || "No content available"}
-          userimage={post.author?.profileImage || "/default-avatar.svg"}
+          userimage={post.results.doctor?.user?.avatar || "/default-avatar.svg"}
           likes={post.likesCount || 0}
           comments={post.commentsCount || 0}
           postid={post.id}

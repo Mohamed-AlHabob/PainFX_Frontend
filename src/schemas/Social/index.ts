@@ -102,13 +102,11 @@ export type Like = z.infer<typeof likeSchema>;
 
 export const createUpdateLikeSchema = z.object({
   postId: z.string().uuid(),
-  userId: z.string().uuid(),
 });
 export type createUpdateLike = z.infer<typeof createUpdateLikeSchema>;
 
 export const createUpdateCommentSchema = z.object({
   postId: z.string().uuid(),
-  userId: z.string().uuid(),
   commentText: z.string(),
   parentCommentId: z.string().uuid().nullable().optional(),
 });

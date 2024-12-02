@@ -60,7 +60,7 @@ export const PostCard = ({
         likes={likes}
         comments={comments}
         likedUser={likedUser}
-        likeid={likeid}
+        likeid={"85"}
         optimisitc={optimisitc}
       />
     </Card>

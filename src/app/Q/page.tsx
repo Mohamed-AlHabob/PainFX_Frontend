@@ -13,11 +13,7 @@ return (
   </div>
   <div className="lg:col-span-2 flex flex-col gap-y-5 py-5">
     <Menu orientation="desktop" />
-    <CreateNewPost
-      userImage={"/file.svg"}
-      channelid={""}
-      username={"mohamed"}
-    />
+    <CreateNewPost/>
 
     <PostFeed/>
   </div>

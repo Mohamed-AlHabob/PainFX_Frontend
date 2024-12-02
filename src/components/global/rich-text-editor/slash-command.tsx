@@ -1,4 +1,3 @@
-import { upload } from "@/lib/uploadcare"
 import {
   CheckSquare,
   Code,
@@ -20,7 +19,7 @@ export const suggestionItems = createSuggestionItems([
     title: "Send Feedback",
     description: "Let us know how we can improve.",
     icon: <MessageSquarePlus size={18} />,
-    command: ({ editor, range }) => {
+    command: ({ editor, range }: { editor: any; range: any }) => {
       editor.chain().focus().deleteRange(range).run()
       window.open("/feedback", "_blank")
     },
@@ -30,22 +29,20 @@ export const suggestionItems = createSuggestionItems([
     description: "Just start typing with plain text.",
     searchTerms: ["p", "paragraph"],
     icon: <Text size={18} />,
-    command: ({ editor, range }) => {
+    command: ({ editor, range }: { editor: any; range: any }) => {
       editor
         .chain()
         .focus()
         .deleteRange(range)
         .toggleNode("paragraph", "paragraph")
         .run()
-    },
-  },
+    },  },
   {
     title: "To-do List",
     description: "Track tasks with a to-do list.",
     searchTerms: ["todo", "task", "list", "check", "checkbox"],
     icon: <CheckSquare size={18} />,
-    command: ({ editor, range }) => {
-      //@ts-ignore
+    command: ({ editor, range }: { editor: any; range: any }) => {
       editor.chain().focus().deleteRange(range).toggleTaskList().run()
     },
   },
@@ -149,19 +146,19 @@ export const suggestionItems = createSuggestionItems([
       input.onchange = async () => {
         if (input.files?.length) {
           const file = input.files[0]
-          const uploaded = await upload.uploadFile(file)
+          // const uploaded = await upload.uploadFile(file)
           //This should return a src of the uploaded image
-          const imgsrc = `https://ucarecdn.com/${uploaded.uuid}/`
-          if (imgsrc) {
-            editor.commands.insertContent([
-              {
-                type: "image",
-                attrs: {
-                  src: imgsrc,
-                },
-              },
-            ])
-          }
+          // const imgsrc = `https://ucarecdn.com/${uploaded.uuid}/`
+          // if (imgsrc) {
+          //   editor.commands.insertContent([
+          //     {
+          //       type: "image",
+          //       attrs: {
+          //         src: imgsrc,
+          //       },
+          //     },
+          //   ])
+          // }
         }
       }
       input.click()

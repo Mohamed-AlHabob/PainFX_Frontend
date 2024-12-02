@@ -73,41 +73,9 @@ export default function UserCard({
         </HoverCard>
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2">
-        <HoverCard>
-        <HoverCardTrigger asChild>
               <Link href={`/user/${id}`} className="cursor-pointer">
                 <h3 className="font-medium text-white hover:underline">{name}</h3>
               </Link>
-            </HoverCardTrigger>
-          <HoverCardContent className="w-80">
-            <div className="flex justify-between space-x-4">
-              <Avatar className="h-12 w-12">
-              <AvatarImage alt={name} src={avatar || "/placeholder.svg"} />
-              <AvatarFallback>{name.charAt(0)}</AvatarFallback>
-              </Avatar>
-              <div className="space-y-1">
-              <h4 className="text-sm font-semibold">{name}</h4>
-                <p className="text-sm">
-                  AI researcher specializing in image recognition for agricultural applications.
-                </p>
-                <div className="flex items-center pt-2">
-                  <CalendarDays className="mr-2 h-4 w-4 opacity-70" />
-                  <span className="text-xs text-zinc-400">Joined
-                    {new Date(joined || "12-2-2024").toLocaleTimeString([], {
-                      month: '2-digit',
-                      year: '2-digit',
-                      hour12: true,
-                    })}
-                    </span>
-                </div>
-                <div className="flex items-center pt-2">
-                  <MapPin className="mr-2 h-4 w-4 opacity-70" />
-                  <span className="text-xs text-zinc-400">{address}</span>
-                </div>
-              </div>
-            </div>
-          </HoverCardContent>
-        </HoverCard>
           <span className="text-sm text-zinc-400">{topic}: {Optional}</span>
         </div>
         <div className="flex items-center gap-2 text-sm">

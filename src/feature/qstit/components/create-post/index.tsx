@@ -5,13 +5,10 @@ import { Card, CardContent, CardDescription } from "@/components/ui/card"
 import { PostCard } from "../post-feed/post-card"
 import { SimpleModal } from "@/components/global/simple-modal"
 import { PostContent } from "@/components/global/post-content"
+import { useRetrieveUserQuery } from "@/redux/features-slices/auth/authApiSlice"
 
-type Props = { userImage: string; channelid: string; username: string }
-
-const CreateNewPost = ({ channelid, userImage, username }: Props) => {
-  // const { data, mutation } = useChannelPage(channelid)
-  // const { name } = data as { name: string }
-
+const CreateNewPost = () => {
+  const { data: user, isLoading } = useRetrieveUserQuery();
   return (
     <>
       <SimpleModal
@@ -20,7 +17,7 @@ const CreateNewPost = ({ channelid, userImage, username }: Props) => {
             <Card className="border-themeGray cursor-pointer first-letter:rounded-2xl overflow-hidden">
               <CardContent className="p-3 bg-[#1A1A1D] flex gap-x-6 items-center ">
                 <Avatar className="cursor-pointer">
-                  <AvatarImage src={userImage} alt="user" />
+                  <AvatarImage src="" alt="user" />
                   <AvatarFallback>U</AvatarFallback>
                 </Avatar>
                 <CardDescription className="text-themeTextGray">
@@ -33,11 +30,11 @@ const CreateNewPost = ({ channelid, userImage, username }: Props) => {
       >
         <div className="flex gap-x-3">
           <Avatar className="cursor-pointer">
-            <AvatarImage src={userImage} alt="user" />
+            <AvatarImage src={user?.avatar} alt="user" />
             <AvatarFallback>U</AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <p className="text-themeTextGray text-sm capitalize">{username}</p>
+            <p className="text-themeTextGray text-sm capitalize">{user?.first_name || "name"}</p>
             <p className="text-sm captialize text-themeTextGray">
               Posting in{" "}
               <span className="font-bold capitalize text-themeTextWhite">
@@ -46,23 +43,9 @@ const CreateNewPost = ({ channelid, userImage, username }: Props) => {
             </p>
           </div>
         </div>
-        <PostContent channelid={channelid} />
+        <PostContent />
       </SimpleModal>
-      {/* {mutation.length > 0 &&
-        mutation[0].status === "pending" &&
-        mutation[0].state && (
-          <PostCard
-            channelname={name}
-            userimage={userImage}
-            username={username}
-            html={mutation[0].state.htmlcontent}
-            title={mutation[0].state.title}
-            likes={0}
-            comments={0}
-            postid={mutation[0].state.postid}
-            optimisitc
-          />
-        )} */}
+          {/* <PostCard userId={""} content={""} channelname={""} title={""} likes={0} comments={0} postid={""}/> */}
     </>
   )
 }

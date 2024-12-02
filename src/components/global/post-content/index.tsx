@@ -1,27 +1,34 @@
 "use client"
-
+import BlockTextEditor from "@/components/global/rich-text-editor"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-
+import { useCreateDocterPost } from "@/hooks/post"
 
 import { Upload } from "lucide-react"
-import BlockTextEditor from "../rich-text-editor"
 
-type PostContentProps = {
-  channelid: string
-}
 
-export const PostContent = ({ channelid }: PostContentProps) => {
-
+export const PostContent = () => {
+  const {
+    onCreatePost,
+    isPending,
+    register,
+    errors,
+    onDescription,
+    setOnDescription,
+    onHtmlDescription,
+    setOnHtmlDescription,
+    onJsonDescription,
+    setJsonDescription,
+  } = useCreateDocterPost();
 
   return (
-    <form className="flex flex-col gap-y-5 w-full" >
+    <form className="flex flex-col gap-y-5 w-full" onSubmit={onCreatePost}>
       <Input
         placeholder="Title"
         className="bg-transparent outline-none border-none text-2xl p-0"
-        // {...register("title")}
+        {...register("title")}
       />
-      {/* <BlockTextEditor
+      <BlockTextEditor
         errors={errors}
         name="jsoncontent"
         min={0}
@@ -34,7 +41,7 @@ export const PostContent = ({ channelid }: PostContentProps) => {
         setTextContent={setOnDescription}
         htmlContent={onHtmlDescription}
         setHtmlContent={setOnHtmlDescription}
-      /> */}
+      />
       <Button className="self-end rounded-2xl bg-themeTextGray flex gap-x-2">
         <Upload />
         Create
