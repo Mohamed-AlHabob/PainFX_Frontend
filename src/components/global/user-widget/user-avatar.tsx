@@ -19,74 +19,68 @@ type UserCardProps = {
 };
 
 export default function UserCard({
-  name,
-  email,
-  phone_number,
-  address,
-  avatar,
-  joined,
-  topic,
-  Optional,
-  bio,
-  role,
   id,
+  name,
+  email = "supernova@gmail.com",
+  phone_number = "776200953",
+  address = "No address provided",
+  avatar,
+  joined = "2024-12-02",
+  bio = "AI researcher specializing in image recognition for agricultural applications.",
+  role = "User",
 }: UserCardProps) {
   return (
     <div className="flex items-center gap-3">
-        <HoverCard>
-          <HoverCardTrigger asChild>
-          <Link href={`/user/${id}`} className="cursor-pointer">
-              <Avatar className="h-10 w-10">
+      <HoverCard>
+        <HoverCardTrigger asChild>
+          <Link href={`/user/${id}`} aria-label={`View profile of ${name}`} className="cursor-pointer">
+            <Avatar className="h-10 w-10">
               <AvatarImage alt={name} src={avatar || "/placeholder.svg"} />
-              <AvatarFallback>{name.charAt(0)}</AvatarFallback>
-              </Avatar>
-            </Link>
-          </HoverCardTrigger>
-          <HoverCardContent className="w-80">
-            <div className="flex justify-between space-x-4">
-              <Avatar className="h-12 w-12">
+              <AvatarFallback>{name?.charAt(0)}</AvatarFallback>
+            </Avatar>
+          </Link>
+        </HoverCardTrigger>
+        <HoverCardContent className="w-full">
+          <div className="flex justify-between space-x-4">
+            <Avatar className="h-12 w-12">
               <AvatarImage alt={name} src={avatar || "/placeholder.svg"} />
-              <AvatarFallback>{name.charAt(0)}</AvatarFallback>
-              </Avatar>
-              <div className="space-y-1">
+              <AvatarFallback>{name?.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <div className="space-y-1">
               <h4 className="text-sm font-semibold">{name}</h4>
-                <p className="text-sm">
-                   {bio || "AI researcher specializing in image recognition for agricultural applications."}
-                </p>
-                <div className="flex items-center pt-2">
-                  <CalendarDays className="mr-2 h-4 w-4 opacity-70" />
-                  <span className="text-xs text-zinc-400">Joined
-                    {new Date(joined || "12-2-2024").toLocaleTimeString([], {
-                      month: '2-digit',
-                      year: '2-digit',
-                      hour12: true,
-                    })}
-                    </span>
-                </div>
-                <div className="flex items-center pt-2">
-                  <MapPin className="mr-2 h-4 w-4 opacity-70" />
-                  <span className="text-xs text-zinc-400">{address}</span>
-                </div>
+              <p className="text-sm">{bio}</p>
+              <div className="flex items-center pt-2">
+                <CalendarDays className="mr-2 h-4 w-4 opacity-70" />
+                <span className="text-xs ">
+                  Joined {new Date(joined).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
+                </span>
+              </div>
+              <div className="flex items-center pt-2">
+                <MapPin className="mr-2 h-4 w-4 opacity-70" />
+                <span className="text-xs ">{address}</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <Link className=" hover:text-zinc-300" href={`tel:${phone_number}`}>
+                  {phone_number}
+                </Link>
+                <span className="text-zinc-600">•</span>
+                <Link
+                  className=" hover:text-zinc-300 truncate overflow-hidden text-ellipsis whitespace-nowrap"
+                  href={`mailto:${email}`}
+                >
+                  {email}
+                </Link>
               </div>
             </div>
-          </HoverCardContent>
-        </HoverCard>
+          </div>
+        </HoverCardContent>
+      </HoverCard>
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2">
-              <Link href={`/user/${id}`} className="cursor-pointer">
-                <h3 className="font-medium text-white hover:underline">{name}</h3>
-              </Link>
-          <span className="text-sm text-zinc-400">{topic}: {Optional}</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm">
-          <Link className="text-zinc-400 hover:text-zinc-300" href="#">
-            {phone_number || ""}
+          <Link href={`/user/${id}`} className="cursor-pointer">
+            <h3 className="font-medium  hover:underline">{name}</h3>
           </Link>
-          <span className="text-zinc-600">•</span>
-          <Link className="text-zinc-400 hover:text-zinc-300 truncate overflow-hidden text-ellipsis whitespace-nowrap" href="#">
-            {email || ""}
-          </Link>
-          <Badge variant="secondary" className="bg-zinc-800 text-zinc-300 hover:bg-zinc-700">
+          <Badge variant="secondary" className=" hover:bg-zinc-200 dark:hover:bg-zinc-700">
             {role}
           </Badge>
         </div>

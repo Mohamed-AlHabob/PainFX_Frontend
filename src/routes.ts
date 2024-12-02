@@ -30,4 +30,4 @@ export const AUTH_ROUTES: string[] = [
  * The default redirect path after logging in
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT: string = "/Q/dashboard";
+export const DEFAULT_LOGIN_REDIRECT: string = "/X";

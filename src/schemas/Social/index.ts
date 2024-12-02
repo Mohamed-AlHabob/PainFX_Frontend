@@ -3,15 +3,17 @@
 import { z } from 'zod';
 import { doctorSchema } from '../Doctor';
 import { userProfileSchema } from '../user-profile';
+import { title } from 'process';
 
 
-export const PostTypeEnum = z.enum(['text', 'video']);
 
 export const postSchema = z.object({
   id: z.string().uuid().optional(),
+  title: z.string().optional(),
   doctor: doctorSchema.optional(),
-  content: z.string().min(1, 'Content is required').optional(),
-  type: PostTypeEnum.optional(),
+  content: z.string().optional(),
+  html_content: z.string().optional(),
+  json_content: z.string().optional(),
   createdAt: z.string().datetime().optional(),
   updatedAt: z.string().datetime().optional(),
 });
@@ -22,24 +24,23 @@ export type Post = z.infer<typeof postSchema>;
 
 
 export const postListResponseSchema = z.object({
-  data: postListSchema,
-  meta: z.object({
+  results: z.array(postSchema),
+  pagination: z.object({
     total: z.number(),
     page: z.number(),
     pageSize: z.number(),
-  }),
+  }).optional(),
 });
+
 
 export const createUpdatePostSchema = z.object({
   content: z.string(),
-  type: PostTypeEnum,
 });
 export type createUpdatePost = z.infer<typeof createUpdatePostSchema>;
 
 export const videoSchema = z.object({
-  id: z.string().uuid(),
-  post: postSchema,
-  videoUrl: z.string().url(),
+  post: postSchema.optional(),
+  videoUrl: z.string().url().optional(),
   thumbnailUrl: z.string().url().optional(),
 });
 
@@ -57,12 +58,11 @@ export type createUpdateVideo = z.infer<typeof createUpdateVideoSchema>;
 
 
 export const commentSchema = z.object({
-  id: z.string().uuid(),
-  post: postSchema,
-  user: userProfileSchema,
-  commentText: z.string().min(1, 'Comment text is required'),
+  post: postSchema.optional(),
+  user: userProfileSchema.optional(),
+  commentText: z.string().optional(),
   parentCommentId: z.string().uuid().optional(),
-  createdAt: z.string().datetime(),
+  createdAt: z.string().datetime().optional(),
 });
 
 export const commentListSchema = z.array(commentSchema);
@@ -90,9 +90,9 @@ export type createUpdateCategory = z.infer<typeof createUpdateCategorySchema>;
 
 export const likeSchema = z.object({
   id: z.string().uuid(),
-  post: postSchema,
-  user: userProfileSchema,
-  createdAt: z.string().datetime(),
+  post: z.string().optional(),
+  user: z.number().optional(),
+  createdAt: z.string().datetime().optional(),
 });
 
 export const likeListSchema = z.array(likeSchema);

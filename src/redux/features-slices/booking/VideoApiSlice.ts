@@ -1,5 +1,5 @@
 import { apiSlice } from "@/redux/services/apiSlice";
-import { createUpdateVideoSchema, videoListSchema, videoSchema } from "@/schemas/Social";
+import { createUpdateVideoSchema, videoSchema } from "@/schemas/Social";
 
 
 export const videoApiSlice = apiSlice.injectEndpoints({
@@ -7,8 +7,8 @@ export const videoApiSlice = apiSlice.injectEndpoints({
     getVideos: builder.query({
       query: () => 'videos/',
       transformResponse: (response) => {
-        videoListSchema.parse(response); // Validate response
-        return response;
+        videoSchema.parse(response); // Validate response
+        return response.results;
       },
     }),
     getVideoById: builder.query({

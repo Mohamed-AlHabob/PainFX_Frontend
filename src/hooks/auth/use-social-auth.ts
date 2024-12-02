@@ -23,7 +23,7 @@ export default function useSocialAuth(authenticate: any, provider: string) {
         .then(() => {
           dispatch(setAuth());
           toast.success('Successfully logged in!');
-          router.push('/Q/dashboard');
+          router.push('/X');
         })
         .catch((error: any) => {
           const errorMessage = extractErrorMessage(error);

@@ -1,5 +1,5 @@
 import { apiSlice } from "@/redux/services/apiSlice";
-import { createUpdatePostSchema, postSchema } from "@/schemas/Social";
+import { createUpdatePostSchema, postListResponseSchema } from "@/schemas/Social";
 
 
 export const postApiSlice = apiSlice.injectEndpoints({
@@ -7,8 +7,11 @@ export const postApiSlice = apiSlice.injectEndpoints({
     getPosts: builder.query({
       query: () => 'posts/',
       transformResponse: (response) => {
-        postSchema.parse(response);
-        return response;
+        const parsedResponse = postListResponseSchema.parse(response);
+        return {
+          data: parsedResponse.results,
+          meta: parsedResponse.pagination,
+        };
       },
     }),
     createPost: builder.mutation({

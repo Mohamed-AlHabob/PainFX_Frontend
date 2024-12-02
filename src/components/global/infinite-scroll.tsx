@@ -7,6 +7,7 @@ type Props = {
   action: "GROUPS" | "POSTS"
   children: React.ReactNode
   paginate: number
+  identifier: string
   search?: boolean
   loading?: "POST"
 }
@@ -14,23 +15,24 @@ type Props = {
 const InfiniteScrollObserver = ({
   action,
   children,
+  identifier,
   paginate,
   search,
   loading,
 }: Props) => {
-  // const { observerElement, isFetching } = useInfiniteScroll(
-  //   action,
-  //   identifier,
-  //   paginate,
-  //   search,
-  // )
+  const { observerElement, isFetching } = useInfiniteScroll(
+    action,
+    identifier,
+    paginate,
+    search,
+  )
 
   return (
     <>
       {children}
-      {/* <div ref={observerElement}>
+      <div ref={observerElement}>
         {isFetching && <Skeleton element={loading || "CARD"} />}
-      </div> */}
+      </div>
     </>
   )
 }

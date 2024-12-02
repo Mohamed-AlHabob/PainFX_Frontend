@@ -32,24 +32,30 @@ export type GroupMenuProps = {
 
 export const LANDING_PAGE_MENU: MenuProps[] = [
   {
-    id: "0",
-    label: "Home",
-    icon: <Home />,
-    path: "/",
-    section: true,
-  },
-  {
     id: "1",
-    label: "Pricing",
-    icon: <CreditCard />,
-    path: "#pricing",
+    label: "Posts",
+    icon: <Home />,
+    path: "/X",
     section: true,
   },
   {
     id: "2",
-    label: "Explore",
+    label: "Doctors",
+    icon: <CreditCard />,
+    path: "/X/doctors",
+    section: true,
+  },
+  {
+    id: "3",
+    label: "Health centers",
     icon: <Explore />,
-    path: "/explore",
+    path: "/X/health-centers",
+  },
+  {
+    id: "4",
+    label: "Reels",
+    icon: <Explore />,
+    path: "/X/reel/1",
   },
 ]
 

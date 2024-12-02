@@ -5,6 +5,9 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export const truncateString = (string: string) => {
+  return string.slice(0, 60) + "..."
+}
 
 export const getMonthName = (month: number) => {
   return month == 1

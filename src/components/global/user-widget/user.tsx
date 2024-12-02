@@ -48,7 +48,7 @@ export const UserDropDown = () => {
         </div>
         <Separator className="my-2" />
 
-        <Link href="/Q/settings" className="flex gap-x-2 px-2">
+        <Link href="/settings" className="flex gap-x-2 px-2">
           <Settings /> Settings
         </Link>
 
@@ -56,7 +56,7 @@ export const UserDropDown = () => {
 
         <Button
           variant="ghost"
-          className="w-full justify-start font-normal text-red-500 hover:text-red-500 hover:bg-red-500/10"
+          className="w-full justify-start font-normal"
           onClick={handleLogout}
         >
           <Logout />

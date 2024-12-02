@@ -6,6 +6,7 @@ import "./globals.css";
 import Provider from '@/redux/provider';
 import Setup from "@/lib/Setup";
 import { ModalProvider } from "@/components/providers/modal-provider";
+import { ReactQueryProvider } from "@/components/providers/provider";
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"] })
 
@@ -48,7 +49,9 @@ export default function RootLayout({
           <Setup />
           <ModalProvider />
           <Toaster position="bottom-center" />
+          <ReactQueryProvider>
             {children}
+          </ReactQueryProvider>
        </ThemeProvider>
     </Provider>
     </body>
