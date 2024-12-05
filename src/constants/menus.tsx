@@ -81,9 +81,9 @@ export const SIDEBAR_SETTINGS_MENU: MenuProps[] = [
   },
   {
     id: "3",
-    label: "appointment",
+    label: "Reservations",
     icon: <AffiliateDuoToneBlack />,
-    path: "appointment",
+    path: "reservations",
   },
   {
     id: "4",

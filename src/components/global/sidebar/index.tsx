@@ -24,7 +24,7 @@ const SideBar = ({ mobile }: Props) => {
               height={40}
               className="rounded-lg"
             />
-            <p className=" text-lg">Authen</p>
+            <p className=" text-lg">PainFX</p>
           </Link>
         </div>
       <div className="flex flex-col gap-y-5">

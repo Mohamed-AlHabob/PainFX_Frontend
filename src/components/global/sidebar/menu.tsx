@@ -47,7 +47,7 @@ const SideBarMenu = ({
                     ? !item.path && "text-white"
                     : currentPage === item.path && "text-white",
                 )}
-                href={`/Q/${groupid}/settings/${item.path}`}
+                href={`/settings/${item.path}`}
                 key={item.id}
               >
                 {item.icon}
@@ -64,7 +64,7 @@ const SideBarMenu = ({
                   ? !item.path && "dark:text-black bg-[#b5faac]"
                   : currentPage === item.path && "text-white",
               )}
-              href={`/Q/${groupid}/settings/${item.path}`}
+              href={`/settings/${item.path}`}
               key={item.id}
             >
               {item.icon}

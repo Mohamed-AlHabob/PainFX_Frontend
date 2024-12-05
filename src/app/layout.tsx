@@ -7,6 +7,7 @@ import Provider from '@/redux/provider';
 import Setup from "@/lib/Setup";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { ReactQueryProvider } from "@/components/providers/provider";
+import 'leaflet/dist/leaflet.css';
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"] })
 

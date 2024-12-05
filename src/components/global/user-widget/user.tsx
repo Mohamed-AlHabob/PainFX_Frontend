@@ -43,7 +43,7 @@ export const UserDropDown = () => {
               <p className="text-sm text-muted-foreground">{user?.email}</p>
               <div className="flex items-center gap-2">
               <Avatar className={cn("h-7 w-7 md:h-10 md:w-10 cursor-pointer bg-[linear-gradient(152deg,_#fff,_#B4F576_42%,_#7EF576)]")}></Avatar>
-                <h2 className="font-semibold">{user?.first_name || " mohamed alhapop"}</h2>
+                <h2 className="font-semibold">{`${user?.first_name} ${" "} ${user?.last_name}`}</h2>
               </div>
         </div>
         <Separator className="my-2" />

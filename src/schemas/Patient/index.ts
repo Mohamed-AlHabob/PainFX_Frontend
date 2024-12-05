@@ -5,10 +5,9 @@ import { createUpdateUserProfileSchema, userProfileSchema } from '../user-profil
 
 
 export const patientSchema = z.object({
-  id: z.string().uuid(),
   user: userProfileSchema,
-  medicalHistory: z.string().optional(), // Add if applicable
-  createdAt: z.string().datetime(),
+  medical_history: z.string().optional(),
+  createdAt: z.string().datetime().optional(),
   updatedAt: z.string().datetime().optional(),
 });
 

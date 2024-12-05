@@ -16,12 +16,12 @@ export const ReservationStatusEnum = z.enum([
 export const reservationSchema = z.object({
   id: z.string().uuid(),
   patient: patientSchema,
-  clinic: clinicSchema,
+  clinic:z.string().optional(),
   status: ReservationStatusEnum,
   reasonForCancellation: z.string().optional(),
-  reservationDate: z.string().datetime(),
-  reservationTime: z.string(),
-  createdAt: z.string().datetime(),
+  reservationDate: z.string().datetime().optional(),
+  reservationTime: z.string().optional(),
+  createdAt: z.string().datetime().optional(),
   updatedAt: z.string().datetime().optional(),
 });
 

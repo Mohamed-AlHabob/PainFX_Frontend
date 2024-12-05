@@ -33,7 +33,7 @@ export const Navbar = async ({ groupid, userid }: NavbarProps) => {
         className="rounded-full !opacity-100 px-3 bg-[#ffffff] dark:bg-themeBlack"
         placeholder="Search..."
       />
-      <Link href={`/group/create`} className="hidden md:inline">
+      {/* <Link href={`/group/create`} className="hidden md:inline">
         <Button
           variant="outline"
           className="rounded-2xl flex gap-2"
@@ -41,7 +41,7 @@ export const Navbar = async ({ groupid, userid }: NavbarProps) => {
           <CheckBadge />
           Create Group
         </Button>
-      </Link>
+      </Link> */}
       <UserWidget />
     </div>
   );

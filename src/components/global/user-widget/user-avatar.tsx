@@ -26,8 +26,8 @@ export default function UserCard({
   address = "No address provided",
   avatar,
   joined = "2024-12-02",
-  bio = "AI researcher specializing in image recognition for agricultural applications.",
-  role = "User",
+  bio = "AI researcher specializing",
+  role,
 }: UserCardProps) {
   return (
     <div className="flex items-center gap-3">
@@ -63,7 +63,9 @@ export default function UserCard({
                 <Link className=" hover:text-zinc-300" href={`tel:${phone_number}`}>
                   {phone_number}
                 </Link>
-                <span className="text-zinc-600">•</span>
+                {phone_number && (
+               <span className="text-zinc-600">•</span>
+              )}
                 <Link
                   className=" hover:text-zinc-300 truncate overflow-hidden text-ellipsis whitespace-nowrap"
                   href={`mailto:${email}`}
@@ -80,9 +82,11 @@ export default function UserCard({
           <Link href={`/user/${id}`} className="cursor-pointer">
             <h3 className="font-medium  hover:underline">{name}</h3>
           </Link>
-          <Badge variant="secondary" className=" hover:bg-zinc-200 dark:hover:bg-zinc-700">
-            {role}
-          </Badge>
+          {role && (
+            <Badge variant="secondary" className=" hover:bg-zinc-200 dark:hover:bg-zinc-700">
+              {role}
+            </Badge>
+          )}
         </div>
       </div>
     </div>

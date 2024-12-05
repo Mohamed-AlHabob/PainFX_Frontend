@@ -1,44 +1,55 @@
-"use client";
+'use client';
+
 import Section from '@/components/global/section-label';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import UserCard from '../user-widget/user-avatar';
 import { Badge } from '@/components/ui/badge';
+import { Reservation } from '@/schemas/Reservation';
+
 
 interface RequestsTodayProps {
-  requestsExistToday: any;
+  requestsExistToday: Reservation;
 }
 
 const RequestsToday = ({ requestsExistToday }: RequestsTodayProps) => {
   return (
     <div className="col-span-1">
       <Section
-        label="Bookings For Today"
-        message="All your bookings for today are mentioned below."
+        label="Reservations For Today"
+        message="All your Reservations for today are mentioned below."
       />
-      {requestsExistToday.length ? (
-        requestsExistToday.map((request:any) => (
-          <Card key={request.id} className="rounded-xl overflow-hidden mt-4">
+      {Array.isArray(requestsExistToday) && requestsExistToday.length > 0 ? (
+        requestsExistToday.map((reservation) => (
+          <Card key={reservation.id} className="rounded-xl overflow-hidden mt-4">
             <CardContent className="p-0 flex">
               <div className="w-4/12 text-xl bg-peach py-10 flex justify-center items-center font-bold">
-                {request.slot || 'N/A'}
+                {reservation.status}
               </div>
               <div className="flex flex-col flex-1">
                 <div className="flex justify-between w-full p-3">
                   <p className="text-sm">
                     Created
                     <br />
-                    {new Date(request.request_date).toLocaleTimeString([], {
+                    {new Date(reservation.reservationDate).toLocaleTimeString([], {
                       hour: '2-digit',
                       minute: '2-digit',
                       hour12: true,
                     })}
                   </p>
-                    <Badge variant="secondary">{request.status}</Badge>
+                  <Badge variant="secondary">{reservation.status}</Badge>
                 </div>
                 <Separator orientation="horizontal" />
                 <div className="w-full flex items-center p-3 gap-2">
-                <UserCard name={`${request.client.user.first_name} ${request.client.user.last_name}`} email={request.client.user.email || ""} phone_number={request.client.phone_number || ""} avatar={request.client?.avatar || ""} joined={request.client.user.date_joined || ""} address={request.client.address} role={request.client.user.role || ""} id={request.client.id || ""} />
+                <UserCard
+                      name={`${reservation?.patient?.user?.first_name || 'Unknown'} ${reservation?.patient?.user?.last_name || ''}`}
+                      email={reservation?.patient?.user?.email || ''}
+                      phone_number={reservation?.patient?.profile?.phone_number || ''}
+                      avatar={reservation?.patient?.user?.profile?.avatar || ''}
+                      joined={reservation?.patient?.user?.date_joined || ''}
+                      address={reservation?.patient?.user?.profile?.address || ''}
+                      id={reservation?.patient?.user.id || ''}
+                    />
                 </div>
               </div>
             </CardContent>
@@ -46,7 +57,7 @@ const RequestsToday = ({ requestsExistToday }: RequestsTodayProps) => {
         ))
       ) : (
         <div className="w-full flex justify-center">
-          <p>No Appointments For Today</p>
+          <p>No Reservations For Today</p>
         </div>
       )}
     </div>
