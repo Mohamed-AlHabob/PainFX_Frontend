@@ -1,8 +1,6 @@
 "use client"
-
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { QISTAT_CONSTANTS } from "@/constants"
+import { CONSTANTS } from "@/constants"
 import { useNavigation } from "@/hooks/navigation"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
@@ -18,7 +16,7 @@ const Menu = ({ orientation }: MenuProps) => {
       return (
         <Card className=" bg-clip-padding backdrop--blur__safari backdrop-filter backdrop-blur-2xl bg-opacity-60 p-1 lg:flex hidden rounded-xl">
           <CardContent className="p-0 flex gap-2">
-            {QISTAT_CONSTANTS.landingPageMenu.map((menuItem) => (
+            {CONSTANTS.landingPageMenu.map((menuItem) => (
               <Link
                 key={menuItem.id}
                 href={menuItem.path}
@@ -43,7 +41,7 @@ const Menu = ({ orientation }: MenuProps) => {
     case "mobile":
       return (
         <div className="flex flex-col mt-10">
-          {QISTAT_CONSTANTS.landingPageMenu.map((menuItem) => (
+          {CONSTANTS.landingPageMenu.map((menuItem) => (
             <Link
               key={menuItem.id}
               href={menuItem.path}

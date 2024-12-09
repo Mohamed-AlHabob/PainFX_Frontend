@@ -5,7 +5,7 @@ import { createUpdateUserProfileSchema, userProfileSchema } from '../user-profil
 
 
 export const patientSchema = z.object({
-  user: userProfileSchema,
+  user: userProfileSchema.optional(),
   medical_history: z.string().optional(),
   createdAt: z.string().datetime().optional(),
   updatedAt: z.string().datetime().optional(),
@@ -17,7 +17,6 @@ export type Patient = z.infer<typeof patientSchema>;
 
 
 export const createUpdatePatientSchema = z.object({
-  user: createUpdateUserProfileSchema,
   medicalHistory: z.string().optional(),
 });
 

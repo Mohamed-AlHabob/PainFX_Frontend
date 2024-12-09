@@ -4,7 +4,7 @@ import * as React from "react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { ActionTooltip } from "./global/action-tooltip";
-import { QISTAT_CONSTANTS } from "@/constants";
+import { CONSTANTS } from "@/constants";
 
 type ModeToggleProps = {
   title?: string;
@@ -17,7 +17,7 @@ export function ModeToggle({ title }: ModeToggleProps) {
     <div className="space-y-2">
       <div className=" flex justify-between space-x-2">
       {/* {title && <span className="text-sm">{title}</span>} */}
-        {QISTAT_CONSTANTS.modetoggle.map((item) => (
+        {CONSTANTS.modetoggle.map((item) => (
           <ActionTooltip
             key={item.id}
             side="top"

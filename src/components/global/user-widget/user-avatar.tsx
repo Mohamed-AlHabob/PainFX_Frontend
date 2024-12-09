@@ -35,15 +35,15 @@ export default function UserCard({
         <HoverCardTrigger asChild>
           <Link href={`/user/${id}`} aria-label={`View profile of ${name}`} className="cursor-pointer">
             <Avatar className="h-10 w-10">
-              <AvatarImage alt={name} src={avatar || "/placeholder.svg"} />
-              <AvatarFallback>{name?.charAt(0)}</AvatarFallback>
+              <AvatarImage alt={name} src={avatar} />
+              <AvatarFallback>{name[0].toUpperCase()}</AvatarFallback>
             </Avatar>
           </Link>
         </HoverCardTrigger>
         <HoverCardContent className="w-full">
           <div className="flex justify-between space-x-4">
             <Avatar className="h-12 w-12">
-              <AvatarImage alt={name} src={avatar || "/placeholder.svg"} />
+              <AvatarImage alt={name} src={avatar} />
               <AvatarFallback>{name?.charAt(0)}</AvatarFallback>
             </Avatar>
             <div className="space-y-1">
@@ -80,7 +80,12 @@ export default function UserCard({
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2">
           <Link href={`/user/${id}`} className="cursor-pointer">
-            <h3 className="font-medium  hover:underline">{name}</h3>
+            <div className="space-y-0.5">
+              <p className="text-sm font-medium">{name}</p>
+              <p className="text-xs text-muted-foreground">
+                {email}
+              </p>
+            </div>
           </Link>
           {role && (
             <Badge variant="secondary" className=" hover:bg-zinc-200 dark:hover:bg-zinc-700">

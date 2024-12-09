@@ -2,8 +2,9 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useActivationMutation } from '@/redux/features/authApiSlice';
+
 import { toast } from 'sonner';
+import { useActivationMutation } from '@/redux/features-slices/auth/authApiSlice';
 
 interface Props {
 	params: {
@@ -28,7 +29,7 @@ export default function Page({ params }: Props) {
 				toast.error('Failed to activate account');
 			})
 			.finally(() => {
-				router.push('/sign-in');
+				router.push('/callback/complete');
 			});
 	}, [activation, router, params]);
 

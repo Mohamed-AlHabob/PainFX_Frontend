@@ -62,7 +62,7 @@ const SideBarMenu = ({
                 "flex gap-x-2 items-center font-semibold rounded-xl  hover:bg-[#cefcc8] hover:text-black p-2",
                 currentPage === "settings"
                   ? !item.path && "dark:text-black bg-[#b5faac]"
-                  : currentPage === item.path && "text-white",
+                  : currentPage === item.path && "",
               )}
               href={`/settings/${item.path}`}
               key={item.id}

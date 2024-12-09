@@ -1,5 +1,4 @@
-
-import PasswordResetConfirmForm from '@/src/components/forms/password_rest/PasswordResetformConfirm';
+import PasswordResetConfirmForm from '@/components/forms/password_rest/PasswordResetformConfirm';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {

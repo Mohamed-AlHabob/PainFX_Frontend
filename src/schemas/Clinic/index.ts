@@ -1,18 +1,21 @@
 // src/schemas/clinic.ts
 
 import { z } from 'zod';
-import { createUpdateUserProfileSchema, userProfileSchema } from '../user-profile';
-import { createUpdateDoctorSchema, doctorSchema } from '../Doctor';
+import { userProfileSchema } from '../user-profile';
+import { doctorSchema, specializationSchema } from '../Doctor';
 
 
 export const clinicSchema = z.object({
   id: z.string().uuid(),
   name: z.string().min(1, 'Name is required'),
   address: z.string().optional(),
-  owner: userProfileSchema,
-  doctors: z.array(doctorSchema),
+  specialization: specializationSchema.nullable().optional(),
+  owner: userProfileSchema.optional(),
+  doctors: z.array(doctorSchema).optional(),
+  reservation_open : z.boolean().optional(),
+  privacy: z.boolean().optional(),
   geolocation: z.string().optional(),
-  createdAt: z.string().datetime(),
+  createdAt: z.string().datetime().optional(),
   updatedAt: z.string().datetime().optional(),
 });
 
@@ -34,11 +37,12 @@ export type ClinicDoctor = z.infer<typeof clinicDoctorSchema>;
 
 
 export const createUpdateClinicSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
+  name: z.string().min(5, 'Name is required'),
   address: z.string().optional(),
-  owner: createUpdateUserProfileSchema,
-  doctors: z.array(createUpdateDoctorSchema).optional(),
-  geolocation: z.string().optional(),
+  specialization : z.string().optional(),
+  license_number : z.string().optional(),
+  license_expiry_date: z.string().optional(),
+  description: z.string().optional(),
 });
 
 export type CreateUpdateClinic = z.infer<typeof createUpdateClinicSchema>;

@@ -70,24 +70,6 @@ export const commentListSchema = z.array(commentSchema);
 export type Comment = z.infer<typeof commentSchema>;
 
 
-export const categorySchema = z.object({
-  id: z.string().uuid(),
-  name: z.string().min(1, 'Name is required'),
-  description: z.string().optional(),
-});
-
-export const categoryListSchema = z.array(categorySchema);
-
-export type Category = z.infer<typeof categorySchema>;
-
-
-
-export const createUpdateCategorySchema = z.object({
-  name: z.string(),
-  description: z.string().optional(),
-});
-export type createUpdateCategory = z.infer<typeof createUpdateCategorySchema>;
-
 export const likeSchema = z.object({
   id: z.string().uuid(),
   post: z.string().optional(),

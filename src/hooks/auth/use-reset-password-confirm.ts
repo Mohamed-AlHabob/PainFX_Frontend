@@ -30,7 +30,7 @@ export default function useResetPasswordConfirm(uid: string, token: string) {
         loading: 'Resetting your password...',
         success: () => {
           reset();
-          router.push('/auth/sign-in');
+          router.push('/sign-in');
           return 'Password reset successful! You can now log in with your new password.';
         },
         error: (error) => {

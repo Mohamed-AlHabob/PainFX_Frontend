@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-accordion": "^1.2.1",
@@ -27,6 +28,7 @@
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-switch": "^1.1.1",
     "@radix-ui/react-tabs": "^1.1.1",
     "@radix-ui/react-toast": "^1.2.2",
     "@radix-ui/react-toggle": "^1.1.0",
@@ -41,6 +43,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
+    "framer-motion": "^11.13.1",
     "html-react-parser": "^5.1.18",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.462.0",
@@ -50,6 +53,7 @@
     "react": "19.0.0-rc-66855b96-20241106",
     "react-day-picker": "^8.10.1",
     "react-dom": "19.0.0-rc-66855b96-20241106",
+    "react-dom-confetti": "^0.2.0",
     "react-hook-form": "^7.53.2",
     "react-html-parser": "^2.0.2",
     "react-leaflet": "^4.2.1",

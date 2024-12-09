@@ -1,5 +1,6 @@
 // src/schemas/userProfile.ts
 
+import { add } from 'date-fns';
 import { z } from 'zod';
 
 export const ProfileSchema = z.object({
@@ -8,6 +9,7 @@ export const ProfileSchema = z.object({
   html_content: z.string().optional(),
   json_content: z.record(z.any()).nullable().optional(),
   avatar: z.string().url().nullable().optional(),
+  address: z.string().nullable().optional(),
   geolocation: z
     .tuple([
       z.number().min(-90).max(90), // Latitude range: -90 to 90
@@ -20,9 +22,9 @@ export const ProfileSchema = z.object({
 export const userProfileSchema = z.object({
   id: z.string().uuid(),
   email: z.string().email('Invalid email address'),
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
-  profile: ProfileSchema,
+  first_name: z.string().optional(),
+  last_name: z.string().optional(),
+  profile: ProfileSchema.optional(),
   date_joined: z.string().datetime().optional(),
   last_login: z.string().datetime().optional(),
 });
@@ -33,11 +35,13 @@ export const createUpdateUserProfileSchema = z.object({
   email: z.string().email('Invalid email address'),
   firstName: z.string().optional(),
   lastName: z.string().optional(),
-  phone: z
+  phone_number: z
     .string()
     .regex(/^\+?[1-9]\d{1,14}$/, 'Invalid phone number')
     .optional(),
-  password: z.string().min(8, 'Password must be at least 8 characters').optional(),
+  geolocation:z.string().optional(),
+  avatar: z.string().url().optional(),
+  address:z.string().optional(),
 });
 
 export type UserProfile = z.infer<typeof userProfileSchema>;

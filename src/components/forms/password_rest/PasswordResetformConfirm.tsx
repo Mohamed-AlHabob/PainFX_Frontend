@@ -1,9 +1,9 @@
 "use client";
 
-import { FormGenerator } from "@/components/global/form-generator";
+import  FormGenerator  from "@/components/global/form-generator";
 import { Loader } from "@/components/global/loader";
 import { Button } from "@/components/ui/button";
-import { QISTAT_CONSTANTS } from "@/constants";
+import { CONSTANTS } from "@/constants";
 import { useResetPassword } from "@/hooks/auth";
 
 
@@ -17,7 +17,7 @@ const PasswordResetConfirmForm = ({uid,token } : PasswordResetFormProps) => {
 
   return (
     <form className="flex flex-col gap-3 mt-10" onSubmit={onResetPassword}>
-      {QISTAT_CONSTANTS.resetPassword.map((field) => (
+      {CONSTANTS.resetPassword.map((field) => (
         <FormGenerator
           {...field}
           key={field.id}
@@ -26,7 +26,7 @@ const PasswordResetConfirmForm = ({uid,token } : PasswordResetFormProps) => {
           disabled={isLoading}
         />
       ))}
-      <Button type="submit" className="rounded-2xl">
+      <Button disabled={isLoading} type="submit" className="rounded-2xl">
         <Loader loading={isLoading}>Save</Loader>
       </Button>
     </form>

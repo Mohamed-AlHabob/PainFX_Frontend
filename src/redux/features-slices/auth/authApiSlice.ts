@@ -2,11 +2,13 @@ import { apiSlice } from "@/redux/services/apiSlice";
 
 
 interface User {
+  id: string;
   first_name?: string;
   last_name?: string;
   email: string;
-  id: string;
-  avatar: string;
+  profile:{
+    avatar: string;
+  }
 }
 
 interface SocialAuthArgs {

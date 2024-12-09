@@ -51,7 +51,7 @@ export const PostCard = ({
       <Separator orientation="horizontal" className="mt-3" />
       <Interactions
         id={postid}
-        comments={comments} userid={userid}      />
+        comments={comments} />
     </Card>
   )
 }

@@ -8,7 +8,7 @@ export function ReelsFeed() {
   const { data, error, isLoading } = useGetVideosQuery({ page: 1, pageSize: 10 });
   const [activeReelId, setActiveReelId] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-
+ console.log(data)
   const handleScroll = useCallback(() => {
     if (containerRef.current && data?.length) {
       const scrollTop = containerRef.current.scrollTop;

@@ -1,4 +1,4 @@
-import { FormProps, SIGN_IN_FORM, SIGN_UP_FORM,REST_PASSWORD_FORM, DOCUMENT_FORM } from "./forms"
+import { FormProps, SIGN_IN_FORM, SIGN_UP_FORM,REST_PASSWORD_FORM, DOCUMENT_FORM, PROFILE_FORM, PATIEN_FORM, DOCTOR_FORM, CLINIC_FORM } from "./forms"
 import {
   LANDING_PAGE_MENU,
   MODE_TOGGLE_MENU,
@@ -11,11 +11,15 @@ import {
 } from "./placeholder"
 import { REASONS_LIST, ReasonsListProps } from "./slider"
 
-type AuthenConstantsProps = {
+type ConstantsProps = {
   landingPageMenu: MenuProps[]
   modetoggle: MenuProps[]
   signUpForm: FormProps[]
   signInForm: FormProps[]
+  profileForm: FormProps[]
+  patienForm: FormProps[]
+  doctorForm: FormProps[]
+  clinicForm: FormProps[]
   documentForm: FormProps[]
   resetPassword: FormProps[]
   reasonsList: ReasonsListProps[]
@@ -23,14 +27,17 @@ type AuthenConstantsProps = {
   
 }
 
-export const QISTAT_CONSTANTS: AuthenConstantsProps = {
+export const CONSTANTS: ConstantsProps = {
   resetPassword:REST_PASSWORD_FORM,
   landingPageMenu: LANDING_PAGE_MENU,
   modetoggle: MODE_TOGGLE_MENU,
   signUpForm: SIGN_UP_FORM,
   signInForm: SIGN_IN_FORM,
+  profileForm: PROFILE_FORM,
+  patienForm:PATIEN_FORM,
+  doctorForm:DOCTOR_FORM,
+  clinicForm:CLINIC_FORM,
   documentForm: DOCUMENT_FORM,
   reasonsList: REASONS_LIST,
   createQistatPlaceholder: CREATE_AUTHEN_PLACEHOLDER,
-
 }

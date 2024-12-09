@@ -34,7 +34,7 @@ export const PostFeed = () => {
             channelname={post?.channelName || "Unknown Channel"}
             title={post?.title || "Untitled Post"}
             content={post?.content || "No content available"}
-            userimage={post?.doctor?.user?.avatar || "/default-avatar.svg"}
+            userimage={post?.doctor?.user?.profile?.avatar || "/default-avatar.svg"}
             likes={post?.likesCount || 0}
             comments={post?.commentsCount || 0}
             postid={post?.id}
@@ -43,7 +43,7 @@ export const PostFeed = () => {
             likeid={post?.likeId || null}
             first_name={post?.doctor?.user?.first_name || "First Name"}
             last_name={post?.doctor?.user?.last_name || "Last Name"}
-            specialization={post?.doctor?.specialization || "Specialization not provided"}
+            specialization={post?.doctor?.specialization.name || "Specialization not provided"}
             userId={post?.doctor.user.id}
           />
         ))
