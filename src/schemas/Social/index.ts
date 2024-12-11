@@ -1,61 +1,6 @@
-// src/schemas/post.ts
-
 import { z } from 'zod';
-import { doctorSchema } from '../Doctor';
 import { userProfileSchema } from '../user-profile';
-import { title } from 'process';
-
-
-
-export const postSchema = z.object({
-  id: z.string().uuid().optional(),
-  title: z.string().optional(),
-  doctor: doctorSchema.optional(),
-  content: z.string().optional(),
-  html_content: z.string().optional(),
-  json_content: z.string().optional(),
-  createdAt: z.string().datetime().optional(),
-  updatedAt: z.string().datetime().optional(),
-});
-
-export const postListSchema = z.array(postSchema);
-
-export type Post = z.infer<typeof postSchema>;
-
-
-export const postListResponseSchema = z.object({
-  results: z.array(postSchema),
-  pagination: z.object({
-    total: z.number(),
-    page: z.number(),
-    pageSize: z.number(),
-  }).optional(),
-});
-
-
-export const createUpdatePostSchema = z.object({
-  content: z.string(),
-});
-export type createUpdatePost = z.infer<typeof createUpdatePostSchema>;
-
-export const videoSchema = z.object({
-  post: postSchema.optional(),
-  videoUrl: z.string().url().optional(),
-  thumbnailUrl: z.string().url().optional(),
-});
-
-export const videoListSchema = z.array(videoSchema);
-
-export type Video = z.infer<typeof videoSchema>;
-
-export const createUpdateVideoSchema = z.object({
-  title: z.string(),
-  description: z.string().optional(),
-  videoUrl: z.string().url(),
-  thumbnailUrl: z.string().url().optional(),
-});
-export type createUpdateVideo = z.infer<typeof createUpdateVideoSchema>;
-
+import { postSchema } from './post';
 
 export const commentSchema = z.object({
   post: postSchema.optional(),
@@ -73,7 +18,7 @@ export type Comment = z.infer<typeof commentSchema>;
 export const likeSchema = z.object({
   id: z.string().uuid(),
   post: z.string().optional(),
-  user: z.number().optional(),
+  user:  userProfileSchema.optional(),
   createdAt: z.string().datetime().optional(),
 });
 
@@ -83,7 +28,7 @@ export type Like = z.infer<typeof likeSchema>;
 
 
 export const createUpdateLikeSchema = z.object({
-  postId: z.string().uuid(),
+  postId: z.string().uuid().optional(),
 });
 export type createUpdateLike = z.infer<typeof createUpdateLikeSchema>;
 

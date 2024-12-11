@@ -1,5 +1,6 @@
-import { useCreateStripePaymentIntentMutation } from "@/redux/features-slices/Payment/PaymentApiSlice";
+import { useCreateStripePaymentIntentMutation } from "@/redux/services/Payment/PaymentApiSlice";
 import React from "react";
+import { Button } from "../ui/button";
 
 
 const PaymentButton = () => {
@@ -13,7 +14,7 @@ const PaymentButton = () => {
     }
   };
 
-  return <button onClick={handlePayment}>Pay with Stripe</button>;
+  return <Button className="w-full rounded-2xl flex gap-3" onClick={handlePayment}>Upgrade</Button>;
 };
 
 export default PaymentButton;

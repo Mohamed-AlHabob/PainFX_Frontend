@@ -1,5 +1,6 @@
 import { FormProps, SIGN_IN_FORM, SIGN_UP_FORM,REST_PASSWORD_FORM, DOCUMENT_FORM, PROFILE_FORM, PATIEN_FORM, DOCTOR_FORM, CLINIC_FORM } from "./forms"
 import {
+  AUTH_LANDING_PAGE_MENU,
   LANDING_PAGE_MENU,
   MODE_TOGGLE_MENU,
   MenuProps,
@@ -13,6 +14,7 @@ import { REASONS_LIST, ReasonsListProps } from "./slider"
 
 type ConstantsProps = {
   landingPageMenu: MenuProps[]
+  authlandingPageMenu: MenuProps[]
   modetoggle: MenuProps[]
   signUpForm: FormProps[]
   signInForm: FormProps[]
@@ -29,7 +31,8 @@ type ConstantsProps = {
 
 export const CONSTANTS: ConstantsProps = {
   resetPassword:REST_PASSWORD_FORM,
-  landingPageMenu: LANDING_PAGE_MENU,
+  landingPageMenu: AUTH_LANDING_PAGE_MENU,
+  authlandingPageMenu: LANDING_PAGE_MENU,
   modetoggle: MODE_TOGGLE_MENU,
   signUpForm: SIGN_UP_FORM,
   signInForm: SIGN_IN_FORM,

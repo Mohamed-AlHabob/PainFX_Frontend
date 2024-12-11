@@ -1,9 +1,11 @@
 import { NavBar } from '@/feature/control/components/nav-bar'
 import { SubNav } from '@/feature/control/components/sub-nav'
+import RequireAuthPowers from '@/lib/RequireAuthPowers'
 import { ReactNode } from 'react'
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
+    <RequireAuthPowers>
     <div className="min-h-screen">
       <NavBar />
       <div className="sticky top-0 z-30 h-fit">
@@ -11,6 +13,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       </div>
       {children}
     </div>
+    </RequireAuthPowers>
   )
 }
 

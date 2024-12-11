@@ -7,16 +7,21 @@ import Link from "next/link"
 
 type MenuProps = {
   orientation: "mobile" | "desktop"
+  isAuthenticated: boolean
 }
 
-const Menu = ({ orientation }: MenuProps) => {
+const Menu = ({ orientation, isAuthenticated }: MenuProps) => {
   const { section, onSetSection } = useNavigation()
+  const menuItems = isAuthenticated
+    ? CONSTANTS.landingPageMenu
+    : CONSTANTS.authlandingPageMenu
+
   switch (orientation) {
     case "desktop":
       return (
         <Card className=" bg-clip-padding backdrop--blur__safari backdrop-filter backdrop-blur-2xl bg-opacity-60 p-1 lg:flex hidden rounded-xl">
           <CardContent className="p-0 flex gap-2">
-            {CONSTANTS.landingPageMenu.map((menuItem) => (
+            {menuItems.map((menuItem) => (
               <Link
                 key={menuItem.id}
                 href={menuItem.path}
@@ -41,7 +46,7 @@ const Menu = ({ orientation }: MenuProps) => {
     case "mobile":
       return (
         <div className="flex flex-col mt-10">
-          {CONSTANTS.landingPageMenu.map((menuItem) => (
+          {menuItems.map((menuItem) => (
             <Link
               key={menuItem.id}
               href={menuItem.path}
@@ -50,7 +55,9 @@ const Menu = ({ orientation }: MenuProps) => {
               })}
               className={cn(
                 "rounded-xl flex gap-2 py-2 px-4 items-center",
-                section === menuItem.path ? "bg-gray-400 dark:bg-[#09090B] border-[#27272A]" : "",
+                section === menuItem.path
+                  ? "bg-gray-400 dark:bg-[#09090B] border-[#27272A]"
+                  : "",
               )}
             >
               {menuItem.icon}

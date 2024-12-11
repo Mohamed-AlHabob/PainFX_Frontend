@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { extractErrorMessage } from '../error-handling';
-import { useResetPasswordConfirmMutation } from '@/redux/features-slices/auth/authApiSlice';
+import { useResetPasswordConfirmMutation } from '@/redux/services/auth/authApiSlice';
 import { RestPassworduseConfirmSchema } from '@/schemas/auth';
 
 export default function useResetPasswordConfirm(uid: string, token: string) {

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { format } from 'date-fns';
-import { ChevronDown, MoreHorizontal, Search, UserPlus } from 'lucide-react';
+import { MoreHorizontal, Search, UserPlus } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {

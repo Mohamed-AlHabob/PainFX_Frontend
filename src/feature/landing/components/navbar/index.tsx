@@ -11,49 +11,41 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { Spinner } from "@/components/spinner";
 
 const LandingPageNavbar = () => {
+  const { isAuthenticated, isLoading } = useAppSelector((state) => state.auth);
 
-	const { isAuthenticated,isLoading } = useAppSelector(state => state.auth);
-  
   const guestLinks = () => (
-		<>
-    {isLoading ? (
-        <Spinner size="lg" />
-    ) : 
-    <Button
-      variant="outline"
-      className="rounded-2xl flex gap-2 "
-    >
-      <Logout />
-      Login
-    </Button>
-    }
-		</>
-	);
-  const authLinks = () => (
-		<>
+    <>
       {isLoading ? (
-          <Spinner size="lg" />
-      ) : 
-			<Link
-				href='/Q/dashboard'
-			>
-				Dashboard
-			</Link>
-      }
-		</>
-	);
+        <Spinner size="lg" />
+      ) : (
+        <Button variant="outline" className="rounded-2xl flex gap-2">
+          <Logout />
+          Login
+        </Button>
+      )}
+    </>
+  );
+
+  const authLinks = () => (
+    <>
+      {isLoading ? (
+        <Spinner size="lg" />
+      ) : (
+        <Link href="/X">Dashboard</Link>
+      )}
+    </>
+  );
 
   return (
     <div className="w-full flex justify-between sticky top-0 items-center py-5 z-50">
       <p className="font-bold text-2xl">PainFX.</p>
-      <Menu orientation="desktop" />
+      <Menu orientation="desktop" isAuthenticated={isAuthenticated} />
+
       <div className="flex gap-2">
         <Link href="/sign-in">
-        {isAuthenticated
-					? authLinks()
-					: guestLinks()}
+          {isAuthenticated ? authLinks() : guestLinks()}
         </Link>
-          <ModeToggle />
+        <ModeToggle />
         <GlassSheet
           triggerClass="lg:hidden"
           trigger={
@@ -62,11 +54,11 @@ const LandingPageNavbar = () => {
             </Button>
           }
         >
-          <Menu orientation="mobile" />
+          <Menu orientation="mobile" isAuthenticated={isAuthenticated} />
         </GlassSheet>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LandingPageNavbar
+export default LandingPageNavbar;

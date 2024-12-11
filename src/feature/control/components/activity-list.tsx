@@ -1,4 +1,4 @@
-import UserCard from '@/components/global/user-widget/user-avatar'
+import UserCard from '@/components/global/user-widget/user-card'
 import { Doctor } from '@/schemas'
 
 

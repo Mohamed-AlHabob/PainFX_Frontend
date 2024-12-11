@@ -1,16 +1,7 @@
 import {
-  AffiliateDuoToneBlack,
-  Buisness,
-  Chat,
-  Courses,
   CreditCard,
-  Document,
   Explore,
-  GlobeDuoToneBlack,
   Home,
-  IDuotoneBlack,
-  PersonalDevelopment,
-  ZapDouToneBlack,
 } from "@/components/icons"
 import { Monitor, Moon, Sun } from "lucide-react"
 
@@ -30,12 +21,12 @@ export type GroupMenuProps = {
   path: string
 }
 
-export const LANDING_PAGE_MENU: MenuProps[] = [
+export const AUTH_LANDING_PAGE_MENU: MenuProps[] = [
   {
     id: "1",
     label: "Posts",
     icon: <Home />,
-    path: "/X",
+    path: "/X/post",
     section: true,
   },
   {
@@ -55,47 +46,41 @@ export const LANDING_PAGE_MENU: MenuProps[] = [
     id: "4",
     label: "Reels",
     icon: <Explore />,
-    path: "/X/reel/1",
-  },
-]
-
-
-export const SIDEBAR_SETTINGS_MENU: MenuProps[] = [
-  {
-    id: "0",
-    label: "General",
-    icon: <IDuotoneBlack />,
-    path: "",
-  },
-  {
-    id: "1",
-    label: "Storage",
-    icon: <CreditCard />,
-    path: "storage",
-  },
-  {
-    id: "2",
-    label: "Subscriptions",
-    icon: <CreditCard />,
-    path: "subscriptions",
-  },
-  {
-    id: "3",
-    label: "Reservations",
-    icon: <AffiliateDuoToneBlack />,
-    path: "reservations",
-  },
-  {
-    id: "4",
-    label: "API",
-    icon: <GlobeDuoToneBlack />,
-    path: "apikey",
+    path: "/X/reel",
   },
   {
     id: "5",
-    label: "Usage",
-    icon: <ZapDouToneBlack />,
-    path: "usage",
+    label: "Reservations",
+    icon: <Explore />,
+    path: "/X/reservations",
+  },
+]
+export const LANDING_PAGE_MENU: MenuProps[] = [
+  {
+    id: "1",
+    label: "Health centers",
+    icon: <Home />,
+    path: "/X",
+    section: true,
+  },
+  {
+    id: "2",
+    label: "Doctors",
+    icon: <CreditCard />,
+    path: "/X/doctors",
+    section: true,
+  },
+  {
+    id: "3",
+    label: "About us",
+    icon: <Explore />,
+    path: "/X/health-centers",
+  },
+  {
+    id: "4",
+    label: "Deals ",
+    icon: <Explore />,
+    path: "#pricing",
   },
 ]
 

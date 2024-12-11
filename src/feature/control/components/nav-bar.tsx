@@ -13,7 +13,7 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { UserDropDown } from '@/components/global/user-widget/user'
 import { Logo, LogoDark } from '@/components/icons/logo'
-import { useGetClinicsQuery } from '@/redux/features-slices/booking/ClinicApiSlice'
+import { useGetClinicsQuery } from '@/redux/services/booking/ClinicApiSlice'
 
 export function NavBar() {
  const {data:clinic} = useGetClinicsQuery("")

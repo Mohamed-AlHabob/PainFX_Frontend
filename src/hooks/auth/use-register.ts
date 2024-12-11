@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { extractErrorMessage } from '../error-handling';
-import { useRegisterMutation } from '@/redux/features-slices/auth/authApiSlice';
+import { useRegisterMutation } from '@/redux/services/auth/authApiSlice';
 import { SignUpSchema } from '@/schemas/auth';
 
 export default function useRegister() {

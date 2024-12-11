@@ -3,28 +3,28 @@ import {
     useCreateCategoryMutation,
     useUpdateCategoryMutation,
     useDeleteCategoryMutation,
-  } from "@/redux/features-slices/booking/CategoryApiSlice";
+  } from "@/redux/services/booking/CategoryApiSlice";
   
   import {
     useGetPaymentMethodsQuery,
     useCreatePaymentMethodMutation,
     useUpdatePaymentMethodMutation,
     useDeletePaymentMethodMutation,
-  } from "@/redux/features-slices/booking/PaymentMethodApiSlice";
+  } from "@/redux/services/booking/PaymentMethodApiSlice";
   
   import {
     useGetPaymentsQuery,
     useCreatePaymentMutation,
     useUpdatePaymentMutation,
     useDeletePaymentMutation,
-  } from "@/redux/features-slices/booking/PaymentApiSlice";
+  } from "@/redux/services/booking/PaymentApiSlice";
   
   import {
     useGetSubscriptionsQuery,
     useCreateSubscriptionMutation,
     useUpdateSubscriptionMutation,
     useDeleteSubscriptionMutation,
-  } from "@/redux/features-slices/booking/SubscriptionApiSlice";
+  } from "@/redux/services/booking/SubscriptionApiSlice";
   
   const useSubscriptionsManager = () => {
     // Categories

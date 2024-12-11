@@ -1,7 +1,7 @@
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Mutex } from 'async-mutex';
-import { logout, setAuth } from '../features-slices/auth/authSlice';
+import { logout, setAuth } from '../services/auth/authSlice';
 
 
 const mutex = new Mutex();
@@ -60,6 +60,7 @@ const baseQueryWithReauth: BaseQueryFn<
 };
 export const apiSlice = createApi({
   reducerPath: 'api',
+  tagTypes: ['Post', 'Like', 'Comment'],
   baseQuery: baseQueryWithReauth,
   endpoints: builder => ({}),
 });

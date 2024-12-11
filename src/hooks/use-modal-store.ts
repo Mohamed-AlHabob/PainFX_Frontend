@@ -1,12 +1,19 @@
 
 import { Clinic, Doctor } from "@/schemas";
+import { Reservation } from "@/schemas/Reservation";
+import { Post } from "@/schemas/Social/post";
 import { create } from "zustand";
 
-export type ModalType = "createServer" | "deletedocument" |"ChangeStatus";
+export type ModalType = "CreateReservation" |"editPost" | "deletePost" |"ConfirmChangeStatus";
 
 interface ModalData {
   Doctor?: Doctor;
+  reservation?: Reservation;
+  Status?: string;
   Clinic?: Clinic;
+  DoctorId?: string;
+  ClinicId?: string;
+  Post?: Post;
 }
 
 interface ModalStore {

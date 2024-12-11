@@ -9,10 +9,10 @@ import { z } from 'zod'
 import { extractErrorMessage } from '../error-handling'
 
 import { createUpdateUserProfileSchema } from '@/schemas/user-profile'
-import { useCreateUserProfileMutation } from '@/redux/features-slices/booking/UserProfileApiSlice'
-import { useCreatePatientMutation } from '@/redux/features-slices/booking/PatientApiSlice'
-import { useCreateDoctorMutation } from '@/redux/features-slices/booking/DoctorApiSlice'
-import { useCreateClinicMutation } from '@/redux/features-slices/booking/ClinicApiSlice'
+import { useCreateUserProfileMutation } from '@/redux/services/booking/UserProfileApiSlice'
+import { useCreatePatientMutation } from '@/redux/services/booking/PatientApiSlice'
+import { useCreateDoctorMutation } from '@/redux/services/booking/DoctorApiSlice'
+import { useCreateClinicMutation } from '@/redux/services/booking/ClinicApiSlice'
 
 // Define the role options
 const roleOptions = ['patient', 'doctor', 'clinic'] as const

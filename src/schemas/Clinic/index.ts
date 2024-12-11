@@ -6,17 +6,18 @@ import { doctorSchema, specializationSchema } from '../Doctor';
 
 
 export const clinicSchema = z.object({
-  id: z.string().uuid(),
-  name: z.string().min(1, 'Name is required'),
+  id: z.string().uuid().optional(),
+  name: z.string().nullable().optional(),
   address: z.string().optional(),
   specialization: specializationSchema.nullable().optional(),
-  owner: userProfileSchema.optional(),
-  doctors: z.array(doctorSchema).optional(),
-  reservation_open : z.boolean().optional(),
-  privacy: z.boolean().optional(),
-  geolocation: z.string().optional(),
-  createdAt: z.string().datetime().optional(),
-  updatedAt: z.string().datetime().optional(),
+  owner: userProfileSchema.nullable().optional(),
+  doctors: z.array(doctorSchema).nullable().optional(),
+  icon: z.string().nullable().optional(),
+  reservation_open : z.boolean().nullable().optional(),
+  privacy: z.boolean().nullable().optional(),
+  description: z.string().nullable().optional(),
+  created_at: z.string().datetime().nullable().optional(),
+  updated_at: z.string().datetime().nullable().optional(),
 });
 
 export const clinicListSchema = z.array(clinicSchema);

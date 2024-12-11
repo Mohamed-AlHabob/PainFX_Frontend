@@ -8,12 +8,12 @@ const items = [
   { title: "Overview", href: "/branch/overview" },
   { title: "Reservations", href: "/branch/reservations" },
   { title: "Doctors", href: "/branch/doctors" },
-  { title: "Branchs", href: "/branch/branchs" },
+  // { title: "Branchs", href: "/branch/overview" },
   { title: "Configure", href: "/branch/configure" },
 ];
 
 export function SubNav() {
-  const pathname = usePathname(); // Get the current path
+  const pathname = usePathname();
 
   return (
     <nav className="border-b px-4">

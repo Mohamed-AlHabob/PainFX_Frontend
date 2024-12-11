@@ -1,17 +1,15 @@
 'use client';
-
-import { useGetClinicsQuery } from "@/redux/features-slices/booking/ClinicApiSlice";
+import { useGetClinicsQuery } from "@/redux/services/booking/ClinicApiSlice";
 import { FeatureCard } from "../../components/feature-card";
 import { Box, Fingerprint, LayoutTemplate } from "lucide-react";
 import { StatCard } from "../../components/stat-card";
 import { ActivityList } from "../../components/activity-list";
-import { Loader } from "@/components/global/loader";
-import { Spinner } from "@/components/spinner";
 
 export default function OverviewPage() {
-  const { data: clinic, isLoading, isError } = useGetClinicsQuery("");
+  const { data, isLoading, isError } = useGetClinicsQuery({ page: 1 });
 
-  console.log("Clinic Data:", clinic);
+  console.log("Clinic Data:", data);
+  const clinic = data?.[0] || null;
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -20,15 +18,13 @@ export default function OverviewPage() {
   if (isError || !clinic) {
     return <div>Error loading clinic data. Please try again later.</div>;
   }
-
-  // Extract relevant clinic details
   const totalDoctors = clinic?.doctors?.length || 0;
-  const ownerName = clinic?.owner
-    ? `${clinic.owner.first_name} ${clinic.owner.last_name}`
+  const ownerName = clinic?.owner?.first_name
+    ? `${clinic.owner?.first_name} ${clinic.owner.last_name}`
     : "Owner";
-  const activeReservations = clinic?.activeReservations || 0; // Replace with actual field from the API
-  const reservationsOfTheDay = clinic?.reservationsOfTheDay || 0; // Replace with actual field
-  const totalPatients = clinic?.totalPatients || 0; // Replace with actual field
+  const activeReservations = clinic?.activeReservations || 0; 
+  const reservationsOfTheDay = clinic?.reservationsOfTheDay || 0;
+  const totalPatients = clinic?.totalPatients || 0;
 
   return (
     <>
@@ -94,8 +90,6 @@ export default function OverviewPage() {
       </div>
 
       <div className="grid gap-8 md:grid-cols-2">
-        {/* Example of rendering additional data */}
-        {/* Uncomment and provide actual data */}
         <ActivityList
           title="Recent Doctors"
           doctors={clinic.doctors || []}

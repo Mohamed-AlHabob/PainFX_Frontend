@@ -1,6 +1,6 @@
 'use client';
 
-import { useGetClinicsQuery } from "@/redux/features-slices/booking/ClinicApiSlice";
+import { useGetClinicsQuery } from "@/redux/services/booking/ClinicApiSlice";
 import { ChevronDown, MoreHorizontal, Search } from 'lucide-react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -24,10 +24,11 @@ import {
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
-import UserCard from "@/components/global/user-widget/user-avatar";
+import UserCard from "@/components/global/user-widget/user-card";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { useState } from "react";
+import { Doctor } from "@/schemas";
 
 export default function DoctorsPage() {
     const [search, setSearch] = useState('');
@@ -114,7 +115,7 @@ export default function DoctorsPage() {
         </TableRow>
       </TableHeader>
   <TableBody>
-    {clinic?.map((doctors) => (
+    {clinic?.map((doctors : Doctor) => (
       <TableRow>
         <TableCell>
          <div className="flex items-center gap-3">
@@ -131,7 +132,7 @@ export default function DoctorsPage() {
         </TableCell>
         <TableCell className="text-sm text-muted-foreground">
           <Badge variant={"outline"}>
-            {doctors.specialization.name || 'Unknown'}
+            {doctors.specialization?.name || 'Unknown'}
           </Badge>
         </TableCell>
         <TableCell className="text-sm text-muted-foreground">

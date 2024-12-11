@@ -1,7 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ChangeStatusModal from "../modals/conform-change-status";
+import { CreateReservationDrawer } from "../modals/create-reservation-drawer";
+import { ConfirmChangeStatus } from "../modals/confirm-change-status";
+import { ConfirmDeletePost } from "../modals/confirm-delete-post";
+import { EditPostModal } from "../modals/Edite-post";
 
 
 export const ModalProvider = () => {
@@ -17,7 +20,10 @@ export const ModalProvider = () => {
 
   return (
     <>
- <ChangeStatusModal />
+    <EditPostModal/>
+    <ConfirmDeletePost/>
+    <ConfirmChangeStatus/>
+    <CreateReservationDrawer/>
     </>
   )
 }

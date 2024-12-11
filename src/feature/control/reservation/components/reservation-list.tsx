@@ -20,31 +20,38 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { format } from 'date-fns';
-import { useGetReservationsQuery } from '@/redux/features-slices/booking/ReservationApiSlice';
+import { useGetReservationsQuery } from '@/redux/services/booking/ReservationApiSlice';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ChevronDown, MoreHorizontal, Search } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import RequestsToday from '@/components/global/appointment/requests-today';
-import UserCard from '@/components/global/user-widget/user-avatar';
+import UserCard from '@/components/global/user-widget/user-card';
 import Link from 'next/link';
+import { useModal } from '@/hooks/use-modal-store';
+import { useRetrieveUserQuery } from '@/redux/services/auth/authApiSlice';
+import { Spinner } from '@/components/spinner';
+import { NoResult } from '@/components/global/no-results';
 
 export function ReservationList() {
+  const {onOpen} = useModal();
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('date');
   const [tab, setTab] = useState('all');
   const { data: reservations, isLoading, error } = useGetReservationsQuery("");
-  console.log(reservations);
+  const { data: user, isLoading:isLoadingRetrieveUser } = useRetrieveUserQuery();
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading reservations</div>;
-  if (!reservations || !Array.isArray(reservations)) return <div>No reservations found</div>;
+  if (isLoading || isLoadingRetrieveUser) return <div className="flex justify-center items-center">
+  <Spinner />
+</div> ;
 
+  if (!reservations || error || reservations.count === 0) {
+    return <NoResult message={''} backTo={''}/>;
+  }
 
-  const filteredReservations = reservations.filter((reservation) => {
+  const filteredReservations = reservations.filter((reservation : Reservation) => {
     const matchesSearch =
-      reservation?.patient?.user?.firstName?.toLowerCase().includes(search.toLowerCase()) ||
-      reservation?.patient?.user?.lastName?.toLowerCase().includes(search.toLowerCase());
+      reservation?.patient?.user?.first_name?.toLowerCase().includes(search.toLowerCase()) ||
+      reservation?.patient?.user?.last_name?.toLowerCase().includes(search.toLowerCase());
 
     if (tab === 'all') return matchesSearch;
     return matchesSearch && reservation.status?.toLowerCase() === tab;
@@ -118,7 +125,7 @@ export function ReservationList() {
                 </TableRow>
               </TableHeader>
           <TableBody>
-            {reservations.map((reservation) => (
+            {reservations.map((reservation : Reservation) => (
               <TableRow key={reservation.id}>
                 <TableCell>
                  <div className="flex items-center gap-3">
@@ -129,12 +136,12 @@ export function ReservationList() {
                       avatar={reservation?.patient?.user?.profile?.avatar || ''}
                       joined={reservation?.patient?.user?.date_joined || ''}
                       address={reservation?.patient?.user?.profile?.address || ''}
-                      id={reservation?.patient?.user.id || ''}
+                      id={reservation?.patient?.user?.id || ''}
                     />
                   </div>
                 </TableCell>
                 <TableCell className="text-sm text-muted-foreground">
-                  <Badge variant="secondary" className={`${getStatusColor(reservation.status)} text-white`}>
+                  <Badge variant="secondary" className={`${getStatusColor(reservation?.status || "")} text-white`}>
                     {reservation.status}
                   </Badge>
                 </TableCell>
@@ -157,12 +164,17 @@ export function ReservationList() {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
+                      {user?.role === "doctor"&&"clinic" ? (
+                      <>
                       <DropdownMenuItem>
                         <Link href={`/branch/reservations/${reservation.id}`}>View</Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem>Approve</DropdownMenuItem>
-                      <DropdownMenuItem>Reject</DropdownMenuItem>
-                      <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => onOpen("ConfirmChangeStatus", { reservation: reservation, Status: "approved" })}>Approve</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => onOpen("ConfirmChangeStatus", { reservation: reservation, Status: "rejected" })}>Reject</DropdownMenuItem>
+                      </>
+                      ):
+                      <DropdownMenuItem onClick={() => onOpen("ConfirmChangeStatus", { reservation: reservation, Status: "cancelled" })} className="text-red-600">Cancelled</DropdownMenuItem>
+                      }
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>

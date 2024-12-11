@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { extractErrorMessage } from '../error-handling';
-import { useResetPasswordMutation } from '@/redux/features-slices/auth/authApiSlice';
+import { useResetPasswordMutation } from '@/redux/services/auth/authApiSlice';
 import { RestPasswordSchema } from '@/schemas/auth';
 export default function useResetPassword() {
   const [resetPassword, { isLoading }] = useResetPasswordMutation();

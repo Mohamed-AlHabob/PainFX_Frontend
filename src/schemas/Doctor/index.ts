@@ -13,8 +13,10 @@ export const doctorSchema = z.object({
   id: z.string().uuid().optional(),
   user: userProfileSchema,
   specialization:  specializationSchema.nullable().optional(),
-  createdAt: z.string().datetime().optional(),
-  updatedAt: z.string().datetime().optional(),
+  license_number: z.string().nullable().optional(),
+  reservation_open : z.boolean().optional(),
+  created_at: z.string().datetime().optional(),
+  updated_at: z.string().datetime().optional(),
 });
 
 export const doctorListSchema = z.array(doctorSchema);
