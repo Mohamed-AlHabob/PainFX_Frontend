@@ -1,6 +1,5 @@
 import { apiSlice } from '../../services/apiSlice';
 import { likeListSchema, createUpdateLikeSchema, Like } from '../../../schemas/Social';
-import { RootState } from '../../store';
 
 
 export interface LikeListResponse {
@@ -27,7 +26,7 @@ export const likeApiSlice = apiSlice.injectEndpoints({
         likeListSchema.parse(response);
         return response;
       },
-      providesTags: (result, error, { postId }) =>
+      providesTags: (result,) =>
         result
           ? [
               ...result.results.map(({ id }) => ({ type: 'Like' as const, id })),
@@ -41,7 +40,7 @@ export const likeApiSlice = apiSlice.injectEndpoints({
         likeListSchema.parse(response);
         return response.results[0] || null;
       },
-      providesTags: (result, error, { postId, userId }) =>
+      providesTags: (result) =>
         result
           ? [{ type: 'Like', id: result.id }]
           : [{ type: 'Like', id: 'LIST' }],
@@ -57,14 +56,13 @@ export const likeApiSlice = apiSlice.injectEndpoints({
         return response;
       },
       invalidatesTags: [{ type: 'Like', id: 'LIST' }],
-      async onQueryStarted({ post }, { dispatch, queryFulfilled, getState }) {
-        const state = getState() as RootState;
+      async onQueryStarted({ post }, { dispatch, queryFulfilled }) {
         const userId = "4121ee66-153c-4200-906c-88337e53dea1";
 
         const patchResult = dispatch(
           apiSlice.util.updateQueryData('getLikes', { postId: post, page: 1 }, (draft) => {
             draft.results.push({
-              id: Math.random(), // Temporary ID; will be replaced by server response
+              id: Math.random(),
               post,
               user: userId || 0,
               created_at: new Date().toISOString(),
@@ -76,7 +74,6 @@ export const likeApiSlice = apiSlice.injectEndpoints({
 
         try {
           const { data } = await queryFulfilled;
-          // Replace the temporary like with actual data
           dispatch(
             apiSlice.util.updateQueryData('getLikes', { postId: post, page: 1 }, (draft) => {
               const index = draft.results.findIndex((like) => like.id === Math.random());
@@ -95,7 +92,7 @@ export const likeApiSlice = apiSlice.injectEndpoints({
         url: `likes/${id}/`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: 'Like', id }],
+      invalidatesTags: ({ id }) => [{ type: 'Like', id }],
       async onQueryStarted({ id, postId }, { dispatch, queryFulfilled }) {
         // Optimistic Update
         const patchResult = dispatch(

@@ -1,5 +1,5 @@
-import CreateNewPost from "@/feature/X/post/components/create-post";
-import  PostsList  from "@/feature/X/post/components/post-feed";
+import CreateNewPost from "@/features/X/post/components/create-post";
+import  PostsList  from "@/features/X/post/components/post-feed";
 
 const PostPage = () => {
 return ( 

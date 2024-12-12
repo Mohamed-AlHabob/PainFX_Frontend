@@ -1,5 +1,5 @@
 import { apiSlice } from "@/redux/services/apiSlice";
-import { Clinic, clinicListSchema, clinicSchema, createUpdateClinicSchema } from "@/schemas/Clinic";
+import { Clinic, clinicSchema, createUpdateClinicSchema } from "@/schemas/Clinic";
 
 export interface ClinicListResponse {
   count: number;
@@ -41,7 +41,7 @@ export const clinicApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      async onQueryStarted({ id, ...data }, { queryFulfilled }) {
+      async onQueryStarted({ ...data }, { queryFulfilled }) {
         createUpdateClinicSchema.parse(data);
         await queryFulfilled;
       },

@@ -1,7 +1,5 @@
-// src/schemas/patient.ts
-
 import { z } from 'zod';
-import { createUpdateUserProfileSchema, userProfileSchema } from '../user-profile';
+import { userProfileSchema } from '../user-profile';
 
 
 export const patientSchema = z.object({

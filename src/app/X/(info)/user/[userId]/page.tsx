@@ -1,4 +1,4 @@
-import DoctorInfoPage from "@/feature/info/user/components";
+import DoctorInfoPage from "@/features/info/user/components";
 
 
 const UserProfilePage = async ({ params }: { params: { userId: string } }) => {

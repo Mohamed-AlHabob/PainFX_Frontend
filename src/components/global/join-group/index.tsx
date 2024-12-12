@@ -1,17 +1,7 @@
 "use client"
-
-import { Loader } from "@/components/global/loader"
-import { Button } from "@/components/ui/button"
-
 import { CardElement } from "@stripe/react-stripe-js"
 
-type JoinGroupPaymentFormProps = {
-  groupid: string
-}
-
-export const JoinGroupPaymentForm = ({
-  groupid,
-}: JoinGroupPaymentFormProps) => {
+export const JoinGroupPaymentForm = () => {
   return (
     <div className="flex flex-col gap-y-3">
       <CardElement

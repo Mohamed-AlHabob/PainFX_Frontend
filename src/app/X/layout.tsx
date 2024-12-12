@@ -1,8 +1,8 @@
 import GroupSideWidget from "@/components/global/group-side-widget"
-import { LeaderBoardCard } from "@/feature/X/components/leaderboard"
-import MobileNav from "@/feature/X/components/mobile-nav"
-import { Navbar } from "@/feature/X/components/navbar"
-import Menu from "@/feature/X/components/group-navbar";
+import { LeaderBoardCard } from "@/features/X/components/leaderboard"
+import MobileNav from "@/features/X/components/mobile-nav"
+import { Navbar } from "@/features/X/components/navbar"
+import Menu from "@/features/X/components/group-navbar";
 import RequireAuth from "@/lib/RequireAuth";
 type Props = {
   children: React.ReactNode

@@ -1,15 +1,11 @@
-import dynamic from 'next/dynamic';
-
-const GoogleAuthClient = dynamic(() => import('@/components/forms/google-auth-client'), { 
-  ssr: false 
-});
+import GoogleAuthClientWrapper from '@/components/forms/GoogleAuthClientWrapper';
 
 const GooglePage = async () => {
   return (
     <div>
-      <GoogleAuthClient />
+      <GoogleAuthClientWrapper />
     </div>
   );
-}
+};
 
 export default GooglePage;

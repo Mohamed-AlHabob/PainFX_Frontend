@@ -1,4 +1,4 @@
-import OverviewPage from '@/feature/control/overview/components'
+import OverviewPage from '@/features/control/overview/components'
 
 export default function DashboardPage() {
   return (

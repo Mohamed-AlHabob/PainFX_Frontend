@@ -1,5 +1,5 @@
 import { Badge } from '@/components/ui/badge'
-import { ConfigCard } from '@/feature/control/components/config-card'
+import { ConfigCard } from '@/features/control/components/config-card'
 
 export default function ConfigurePage() {
   return (

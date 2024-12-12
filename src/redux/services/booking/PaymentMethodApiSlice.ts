@@ -28,7 +28,7 @@ export const paymentMethodApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      async onQueryStarted({ id, ...data }, { queryFulfilled }) {
+      async onQueryStarted({ ...data }, { queryFulfilled }) {
         createUpdatePaymentMethodSchema.parse(data);
         await queryFulfilled;
       },

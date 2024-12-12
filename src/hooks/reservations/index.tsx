@@ -30,51 +30,55 @@ export const useReservations = () => {
     resolver: zodResolver(createUpdateReservationSchema),
   });
 
-  const { data: reservations,refetch:refetchReservations, isLoading: isLoadingReservations, error: reservationsError } = useGetReservationsQuery("");
+  const { data: reservations, refetch: refetchReservations, isLoading: isLoadingReservations, error: reservationsError } = useGetReservationsQuery("");
 
   const [createReservation, { isLoading: isCreating }] = useCreateReservationMutation();
   const [updateReservationMutation, { isLoading: isUpdating }] = useUpdateReservationMutation();
   const [deleteReservation, { isLoading: isDeleting }] = useDeleteReservationMutation();
 
-  const onCreateReservation = useCallback(handleSubmit(async (values) => {
-    try {
-      await toast.promise(
-        createReservation(values).unwrap(),
-        {
-          loading: "Creating reservation...",
-          success: async () => {
-            reset();
-            await refetchReservations();
-            return "Reservation created successfully!";
-          },
-          error: (error) => extractErrorMessage(error),
-        }
-      );
-      reset();
-    } catch (error:any) {
-      toast.error(extractErrorMessage(error));
-    }
-  }), [createReservation, reset]);
+  const onCreateReservation = useCallback(() => {
+    return handleSubmit(async (values) => {
+      try {
+        await toast.promise(
+          createReservation(values).unwrap(),
+          {
+            loading: "Creating reservation...",
+            success: async () => {
+              reset();
+              await refetchReservations();
+              return "Reservation created successfully!";
+            },
+            error: (error) => extractErrorMessage(error),
+          }
+        );
+        reset();
+      } catch (error) {
+        toast.error(extractErrorMessage(error));
+      }
+    });
+  }, [createReservation, reset, handleSubmit, refetchReservations]);
 
-  const onUpdateReservation = useCallback(handleSubmit(async ({ id, ...values }) => {
-    try {
-      await toast.promise(
-        updateReservationMutation({ id, ...values }).unwrap(),
-        {
-          loading: "Updating reservation...",
-          success: async () => {
-            reset();
-            await refetchReservations();
-            return "Reservation updated successfully!";
-          },
-          error: (error) => extractErrorMessage(error),
-        }
-      );
-      reset();
-    } catch (error:any) {
-      toast.error(extractErrorMessage(error));
-    }
-  }), [updateReservationMutation, reset]);
+  const onUpdateReservation = useCallback(() => {
+    return handleSubmit(async ({ id, ...values }) => {
+      try {
+        await toast.promise(
+          updateReservationMutation({ id, ...values }).unwrap(),
+          {
+            loading: "Updating reservation...",
+            success: async () => {
+              reset();
+              await refetchReservations();
+              return "Reservation updated successfully!";
+            },
+            error: (error) => extractErrorMessage(error),
+          }
+        );
+        reset();
+      } catch (error) {
+        toast.error(extractErrorMessage(error));
+      }
+    });
+  }, [updateReservationMutation, reset, handleSubmit, refetchReservations]);
 
   const updateReservation = useCallback(async (id: string, values: Partial<ReservationFormValues>) => {
     try {
@@ -90,11 +94,11 @@ export const useReservations = () => {
           error: (error) => extractErrorMessage(error),
         }
       );
-    } catch (error:any) {
+    } catch (error) {
       toast.error(extractErrorMessage(error));
       throw error;
     }
-  }, [updateReservationMutation]);
+  }, [updateReservationMutation, reset, refetchReservations]);
 
   const onDeleteReservation = useCallback(async (id: string) => {
     try {
@@ -110,10 +114,10 @@ export const useReservations = () => {
           error: (error) => extractErrorMessage(error),
         }
       );
-    } catch (error:any) {
+    } catch (error) {
       toast.error(extractErrorMessage(error));
     }
-  }, [deleteReservation]);
+  }, [deleteReservation, reset, refetchReservations]);
 
   const isLoading = isCreating || isUpdating || isDeleting || isLoadingReservations;
 

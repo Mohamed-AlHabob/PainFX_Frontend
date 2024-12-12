@@ -6,11 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ActionTooltip } from "./global/action-tooltip";
 import { CONSTANTS } from "@/constants";
 
-type ModeToggleProps = {
-  title?: string;
-};
-
-export function ModeToggle({ title }: ModeToggleProps) {
+export function ModeToggle() {
   const { setTheme } = useTheme();
 
   return (

@@ -1,5 +1,4 @@
-import { ConfigSidebar } from '@/feature/control/components/config-sidebar'
-
+import { ConfigSidebar } from '@/features/control/components/config-sidebar'
 import { ReactNode } from 'react'
 
 export default function AuthLayout({ children }: { children: ReactNode }) {

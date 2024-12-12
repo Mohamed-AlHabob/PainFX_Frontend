@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import { extractErrorMessage } from '../error-handling';
 import { setAuth } from '@/redux/services/auth/authSlice';
 
-export default function useSocialAuth(authenticate: any, provider: string) {
+export default function useSocialAuth(authenticate, provider: string) {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -25,7 +25,7 @@ export default function useSocialAuth(authenticate: any, provider: string) {
           toast.success('Successfully logged in!');
           router.push('/callback/complete');
         })
-        .catch((error: any) => {
+        .catch((error) => {
           const errorMessage = extractErrorMessage(error);
           toast.error(`Authentication failed: ${errorMessage}`);
           router.push('/sign-in');

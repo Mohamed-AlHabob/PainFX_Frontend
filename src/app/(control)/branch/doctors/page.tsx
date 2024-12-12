@@ -1,4 +1,4 @@
-import DoctorsPage from "@/feature/control/doctors/components";
+import DoctorsPage from "@/features/control/doctors/components";
 
 export default function UsersPage() {
   return (

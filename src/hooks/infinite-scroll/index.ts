@@ -5,15 +5,11 @@ import { useQuery } from "@tanstack/react-query"
 import { useEffect, useRef } from "react"
 import { useDispatch } from "react-redux"
 export const useInfiniteScroll = (
-  action: "GROUPS" | "CHANNEL" | "POSTS",
-  identifier: string,
-  paginate: number,
-  search?: boolean,
-  query?: string,
+  
 ) => {
   const observerElement = useRef<HTMLDivElement>(null)
   const dispatch: AppDispatch = useDispatch()
-  const { data } = useAppSelector((state) => state.infiniteScroll)
+  const {  } = useAppSelector((state) => state.infiniteScroll)
 
   const {
     refetch,

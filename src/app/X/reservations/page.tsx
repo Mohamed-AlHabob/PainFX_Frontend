@@ -1,4 +1,4 @@
-import { ReservationList } from "@/feature/control/reservation/components/reservation-list";
+import { ReservationList } from "@/features/control/reservation/components/reservation-list";
 
 export default function UsersPage() {
   return (

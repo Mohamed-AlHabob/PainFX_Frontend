@@ -1,6 +1,6 @@
-import { PostComments } from "@/feature/X/post/components/comments"
-import { PostCommentForm } from "@/feature/X/post/components/post-comments"
-import { PostInfo } from "@/feature/X/post/components/post-info"
+import { PostComments } from "@/features/X/post/components/comments"
+import { PostCommentForm } from "@/features/X/post/components/post-comments"
+import { PostInfo } from "@/features/X/post/components/post-info"
 
 const PostPage = async ({ params }: { params: { postid: string } }) => {
 

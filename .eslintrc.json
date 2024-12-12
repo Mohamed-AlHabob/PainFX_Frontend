@@ -1,6 +1,6 @@
 {
   "extends": ["next/core-web-vitals", "next/typescript"],
-  "plugins": ["boundaries", "eslint-plugin-project-structure"],
+  "plugins": ["boundaries"],
   "settings": {
     "boundaries/include": ["src/**/*"],
     "boundaries/elements": [
@@ -8,11 +8,12 @@
         "mode": "full",
         "type": "shared",
         "pattern": [
-          "src/components/**/*",
-          "src/constants/**/*",
-          "src/hooks/**/*",
-          "src/lib/**/*",
-          "src/server/**/*"
+          "src/components/**",
+          "src/constants/**",
+          "src/redux/**",
+          "src/hooks/**",
+          "src/lib/**",
+          "src/schemas/**"
         ]
       },
       {
@@ -32,8 +33,7 @@
         "type": "neverImport",
         "pattern": ["src/*", "src/tasks/**/*"]
       }
-    ],
-    "project-structure/independent-modules-config-path": "independentModules.jsonc"
+    ]
   },
   "rules": {
     "boundaries/no-unknown": ["error"],
@@ -64,7 +64,6 @@
           }
         ]
       }
-    ],
-    "project-structure/independent-modules": "error"
+    ]
   }
 }

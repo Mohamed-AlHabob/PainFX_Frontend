@@ -12,7 +12,7 @@ const baseQuery = fetchBaseQuery({
 });
 
 interface ExtraOptions {
-  [key: string]: any;
+  [key: string];
 }
 
 const baseQueryWithReauth: BaseQueryFn<
@@ -62,5 +62,5 @@ export const apiSlice = createApi({
   reducerPath: 'api',
   tagTypes: ['Post', 'Like', 'Comment'],
   baseQuery: baseQueryWithReauth,
-  endpoints: builder => ({}),
+  endpoints: () => ({}),
 });

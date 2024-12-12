@@ -37,8 +37,10 @@ export const usePosts = () => {
   const [createPost, { isLoading: isCreatingPost }] = useCreatePostMutation();
   const [updatePostMutation, { isLoading: isUpdating }] = useUpdatePostMutation();
   const [deletePost, { isLoading: isDeleting }] = useDeletePostMutation();
-  const onCreatePost = useCallback(handleSubmit(async (values) => {
-    try {
+
+  const onCreatePost = useCallback(() => {
+    return handleSubmit(async (values) => {
+      try {
         await toast.promise(
           createPost(values).unwrap(),
           {
@@ -48,36 +50,40 @@ export const usePosts = () => {
               await refetchPosts();
               return "Post created successfully!";
             },
-            error: (error) => extractErrorMessage(error),
+            error: (error: unknown) => extractErrorMessage(error),
           }
         );
         reset();
       }
-      catch (error: any) {
+      catch (error: unknown) {
         toast.error(extractErrorMessage(error));
       }
-  }), [createPost, reset, refetchPosts]);
+    })();
+  }, [createPost, reset, refetchPosts, handleSubmit]);
 
-  const onUpdatePost = useCallback(handleSubmit(async ({ id, ...values }) => {
-    if (!id) return;
-    try {
-      await toast.promise(
-        updatePostMutation({ id, ...values }).unwrap(),
-        {
-          loading: "Updating post...",
-          success: async () => {
-            reset();
-            await refetchPosts();
-            return "Post updated successfully!";
-          },
-          error: (error) => extractErrorMessage(error),
-        }
-      );
-      reset();
-    } catch (error: any) {
-      toast.error(extractErrorMessage(error));
-    }
-  }), [updatePostMutation, reset, refetchPosts]);
+  const onUpdatePost = useCallback(() => {
+    return handleSubmit(async ({ id, ...values }) => {
+      if (!id) return;
+      try {
+        await toast.promise(
+          updatePostMutation({ id, ...values }).unwrap(),
+          {
+            loading: "Updating post...",
+            success: async () => {
+              reset();
+              await refetchPosts();
+              return "Post updated successfully!";
+            },
+            error: (error) => extractErrorMessage(error),
+          }
+        );
+        reset();
+      } catch (error:unknown) {
+        toast.error(extractErrorMessage(error));
+      }
+    })();
+  }, [updatePostMutation, reset, refetchPosts, handleSubmit]);
+
   const updatePost = useCallback(async (id: string, values: Partial<PostFormValues>) => {
     try {
       await toast.promise(
@@ -92,7 +98,7 @@ export const usePosts = () => {
           error: (error) => extractErrorMessage(error),
         }
       );
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error(extractErrorMessage(error));
       throw error;
     }
@@ -112,12 +118,12 @@ export const usePosts = () => {
           error: (error) => extractErrorMessage(error),
         }
       );
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error(extractErrorMessage(error));
     }
   }, [deletePost, reset, refetchPosts]);
 
-  const isLoading = isCreatingPost  || isUpdating || isDeleting || isLoadingPosts;
+  const isLoading = isCreatingPost || isUpdating || isDeleting || isLoadingPosts;
 
   return {
     posts,
@@ -135,4 +141,3 @@ export const usePosts = () => {
     errors,
   };
 };
-

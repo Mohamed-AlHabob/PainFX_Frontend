@@ -1,7 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import { useAppSelector } from '@/redux/hooks';
 import { Spinner } from '@/components/spinner';
 import { useRetrieveUserQuery } from '@/redux/services/auth/authApiSlice';

@@ -40,7 +40,7 @@ export const postApiSlice = apiSlice.injectEndpoints({
         postListResponseSchema.parse(response);
         return response;
       },
-      providesTags: (result, error, { page }) =>
+      providesTags: (result) =>
         result
           ? [
               ...result.results.map(({ id }) => ({ type: 'Post' as const, id })),

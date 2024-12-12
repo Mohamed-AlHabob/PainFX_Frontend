@@ -1,4 +1,4 @@
-import { AUTH_ROUTES, DEFAULT_LOGIN_REDIRECT, PUBLIC_ROUTES } from "@/routes";
+import { AUTH_ROUTES, DEFAULT_LOGIN_REDIRECT, PUBLIC_ROUTES } from "../routes";
 import { NextRequest, NextResponse } from 'next/server';
 
 // Helper function to check if the path matches any route with dynamic segments

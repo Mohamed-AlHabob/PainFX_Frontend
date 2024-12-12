@@ -28,11 +28,10 @@ export const subscriptionApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      async onQueryStarted({ id, ...data }, { queryFulfilled }) {
+      async onQueryStarted({ ...data }, { queryFulfilled }) {
         createUpdateSubscriptionSchema.parse(data);
         await queryFulfilled;
-      },
-    }),
+      },    }),
     deleteSubscription: builder.mutation({
       query: (id) => ({
         url: `subscriptions/${id}/`,

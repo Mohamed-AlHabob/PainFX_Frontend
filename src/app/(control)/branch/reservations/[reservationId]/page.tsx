@@ -1,4 +1,4 @@
-import { ReservationDetails } from "@/feature/control/reservation/components/reservation-details";
+import { ReservationDetails } from "@/features/control/reservation/components/reservation-details";
 
 interface ReservationPageProps {
   params: {

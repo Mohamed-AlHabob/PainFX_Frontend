@@ -28,11 +28,10 @@ export const userProfileApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      async onQueryStarted({ id, ...data }, { queryFulfilled }) {
+      async onQueryStarted({ ...data }, { queryFulfilled }) {
         createUpdateUserProfileSchema.parse(data);
         await queryFulfilled;
-      },
-    }),
+      },    }),
     deleteUserProfile: builder.mutation({
       query: (id) => ({
         url: `users/${id}/`,

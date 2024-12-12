@@ -35,7 +35,7 @@ export const doctorApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      async onQueryStarted({ id, ...data }, { queryFulfilled }) {
+      async onQueryStarted({...data }, { queryFulfilled }) {
         createUpdateDoctorSchema.parse(data);
         await queryFulfilled;
       },

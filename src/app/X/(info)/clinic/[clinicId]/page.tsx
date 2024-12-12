@@ -1,4 +1,4 @@
-import ClinicInfoPage from "@/feature/info/clinic/components";
+import ClinicInfoPage from "@/features/info/clinic/components";
 
 const UserProfilePage = async ({ params }: { params: { clinicId: string } }) => {
   const { clinicId } = await params;

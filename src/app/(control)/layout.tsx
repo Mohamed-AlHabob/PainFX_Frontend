@@ -1,5 +1,5 @@
-import { NavBar } from '@/feature/control/components/nav-bar'
-import { SubNav } from '@/feature/control/components/sub-nav'
+import { NavBar } from '@/features/control/components/nav-bar'
+import { SubNav } from '@/features/control/components/sub-nav'
 import RequireAuthPowers from '@/lib/RequireAuthPowers'
 import { ReactNode } from 'react'
 

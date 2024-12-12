@@ -12,7 +12,7 @@ interface PasswordResetFormProps{
   token: string
 }
 
-const PasswordResetConfirmForm = ({uid,token } : PasswordResetFormProps) => {
+const PasswordResetConfirmForm = ({ } : PasswordResetFormProps) => {
   const { register, errors, onResetPassword, isLoading } = useResetPassword();
 
   return (

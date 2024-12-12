@@ -69,7 +69,7 @@ export const useComplete = () => {
   })
 
   // Handle final details submission based on selected role
-  const handleDetailsSubmit = async (values: any) => {
+  const handleDetailsSubmit = async (values) => {
     let createFunction
     let successMessage
     let redirectPath

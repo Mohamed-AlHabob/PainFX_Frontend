@@ -16,8 +16,8 @@ export const OnlineTracking = createSlice({
   reducers: {
     onOnline: (state, action: PayloadAction<InitialStateProps>) => {
       //check for duplicates
-      const list = state.members.find((data: any) =>
-        action.payload.members.find((payload: any) => data.id === payload.id),
+      const list = state.members.find((data) =>
+        action.payload.members.find((payload) => data.id === payload.id),
       )
 
       if (!list) state.members = [...state.members, ...action.payload.members]

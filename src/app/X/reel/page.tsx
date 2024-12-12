@@ -1,4 +1,4 @@
-import ReelsList from "@/feature/X/reel/components/reel-feed";
+import ReelsList from "@/features/X/reel/components/reel-feed";
 
 
 export default function Home() {

@@ -11,7 +11,7 @@ export const paymentApiSlice = apiSlice.injectEndpoints({
         method: 'OPTIONS',
         body: data,
       }),
-      async onQueryStarted({ amount, currency }, { queryFulfilled }) {
+      async onQueryStarted({  }, { queryFulfilled }) {
         try {
           // Await the mutation response
           const { data } = await queryFulfilled;

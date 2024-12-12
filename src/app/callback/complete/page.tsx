@@ -1,4 +1,4 @@
-import CompleteProfileForm from "@/feature/complete/components/CompleteProfileForm";
+import CompleteProfileForm from "@/features/complete/components/CompleteProfileForm";
 
 
 export default function CompleteProfilePage() {

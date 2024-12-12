@@ -1,5 +1,3 @@
-// src/schemas/advertisingCampaign.ts
-
 import { z } from 'zod';
 import { clinicSchema } from '../Clinic';
 

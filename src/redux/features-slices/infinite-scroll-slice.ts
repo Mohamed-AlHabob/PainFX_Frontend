@@ -12,8 +12,8 @@ export const InfiniteScroll = createSlice({
   initialState: InitialState,
   reducers: {
     onInfiniteScroll: (state, action: PayloadAction<InitialStateProps>) => {
-      const list = state.data.find((data: any) =>
-        action.payload.data.find((payload: any) => data.id === payload.id),
+      const list = state.data.find((data) =>
+        action.payload.data.find((payload) => data.id === payload.id),
       )
 
       if (!list) state.data = [...state.data, ...action.payload.data]

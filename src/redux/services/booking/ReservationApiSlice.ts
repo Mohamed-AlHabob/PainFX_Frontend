@@ -1,5 +1,5 @@
 import { apiSlice } from "@/redux/services/apiSlice";
-import { createUpdateReservationSchema, reservationListSchema, reservationSchema } from "@/schemas/Reservation";
+import { createUpdateReservationSchema, reservationSchema } from "@/schemas/Reservation";
 
 
 export const reservationApiSlice = apiSlice.injectEndpoints({
@@ -35,7 +35,7 @@ export const reservationApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      async onQueryStarted({ id, ...data }, { queryFulfilled }) {
+      async onQueryStarted({...data }, { queryFulfilled }) {
         createUpdateReservationSchema.parse(data);
         await queryFulfilled;
       },

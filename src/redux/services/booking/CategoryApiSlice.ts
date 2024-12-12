@@ -28,7 +28,7 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      async onQueryStarted({ id, ...data }, { queryFulfilled }) {
+      async onQueryStarted({ ...data }, { queryFulfilled }) {
         createUpdateCategorySchema.parse(data);
         await queryFulfilled;
       },

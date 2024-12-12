@@ -1,4 +1,4 @@
-import { Copy, Eye, KeyRound, ShieldBan, Trash2, User2 } from 'lucide-react'
+import { Copy, Eye, ShieldBan, Trash2 } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { format } from 'date-fns';
@@ -6,28 +6,17 @@ type UserProfileSidebarProps = {
     id: string;
     name: string;
     email?: string;
-    phone_number?: string;
-    address?: string;
     avatar?: string;
     joined?: string;
     last_login?: string;
-    bio?: string;
-    topic?: string;
-    Optional?: string;
-    role?: string;
   };
   
   export default function UserProfileSidebar({
     id,
     name,
-    last_login = "2024-12-02",
-    email = "supernova@gmail.com",
-    phone_number = "776200953",
-    address = "No address provided",
     avatar,
     joined = "2024-12-02",
-    bio = "AI researcher specializing",
-    role,
+    last_login = "2024-12-02",
   }: UserProfileSidebarProps) {
   return (
           <div className="space-y-6">

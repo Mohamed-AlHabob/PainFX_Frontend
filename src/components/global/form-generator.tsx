@@ -1,5 +1,5 @@
 import React from "react";
-import { Controller, UseFormRegister, FieldErrors, FieldValues } from "react-hook-form";
+import { Controller, UseFormRegister, FieldErrors, FieldValues, Control, RegisterOptions } from "react-hook-form";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
@@ -13,14 +13,13 @@ type FormGeneratorProps = {
   placeholder?: string;
   disabled?: boolean;
   rows?: number;
-  register?: UseFormRegister<any>;
-  errors: FieldErrors<FieldValues>
-  control?: any;
-  defaultValue?: any;
-  rules?: any;
+  register?: UseFormRegister<FieldValues>;
+  errors: FieldErrors<FieldValues>;
+  control?: Control<FieldValues>;
+  defaultValue?: unknown;
+  rules?: RegisterOptions<FieldValues>;
   options?: { value: string; label: string }[];
 };
-
 const FormGenerator: React.FC<FormGeneratorProps> = ({
   name,
   label,

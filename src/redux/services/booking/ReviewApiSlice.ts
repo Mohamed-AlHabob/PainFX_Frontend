@@ -28,7 +28,7 @@ export const reviewApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      async onQueryStarted({ id, ...data }, { queryFulfilled }) {
+      async onQueryStarted({ ...data }, { queryFulfilled }) {
         createUpdateReviewSchema.parse(data);
         await queryFulfilled;
       },

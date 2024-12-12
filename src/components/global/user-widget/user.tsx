@@ -29,9 +29,9 @@ export const UserDropDown = () => {
     Blogout()
       .unwrap()
       .then(() => {
-        logout
+        logout();
         router.push("/");
-        refetch()
+        refetch();
       })
       .catch((error) => {
         console.error("Logout failed:", error);
