@@ -13,10 +13,9 @@ const GroupSideWidget = () => {
         "border-themeGray lg:sticky lg:top-0 mt-10 lg:mt-0 rounded-xl overflow-hidden",
       )}
     >
-      <Image
-        src={`./Screenshot 2024-11-11 121008.png`}
+      <img
+        src={'https://brave.com/static-assets/images/optimized/blog/photo-scholarship/images/student-ntp-sam-richter.webp'}
         alt="thumbnail"
-        fill
         className="w-full aspect-video"
       />
       <div className="flex flex-col p-5 gap-y-2">

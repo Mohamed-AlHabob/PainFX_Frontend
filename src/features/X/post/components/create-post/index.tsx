@@ -8,6 +8,7 @@ import PostContent from "../post-content"
 
 const CreateNewPost = () => {
   const { data: user, isLoading } = useRetrieveUserQuery();
+  
   if (isLoading) return <div className="flex justify-center items-center">
     <Spinner />
   </div> 
