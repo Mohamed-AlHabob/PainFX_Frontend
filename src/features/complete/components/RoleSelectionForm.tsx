@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label'
 import { z } from 'zod'
 import { motion } from 'framer-motion'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 const RoleSelectionSchema = z.object({
   role: z.enum(['patient', 'doctor', 'clinic']),
 })

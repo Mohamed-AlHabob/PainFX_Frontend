@@ -2,17 +2,18 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useActivationMutation } from '@/redux/features/authApiSlice';
-import { toast } from 'sonner';
 
-interface Props {
+import { toast } from 'sonner';
+import { useActivationMutation } from '@/redux/services/auth/authApiSlice';
+
+interface PageProps {
 	params: {
 		uid: string;
 		token: string;
 	};
 }
 
-export default function Page({ params }: Props) {
+export default function Page({ params }: PageProps) {
 	const router = useRouter();
 	const [activation] = useActivationMutation();
 

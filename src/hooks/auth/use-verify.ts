@@ -20,7 +20,7 @@ export default function useVerify() {
           dispatch(setAuth());
           toast.success('Verification successful!');
         }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    
       } catch (error) {
         if (!didCancel) {
 
