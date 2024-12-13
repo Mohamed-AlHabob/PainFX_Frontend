@@ -1,66 +1,74 @@
-"use client";
-import GlassSheet from "@/components/global/glass-sheet";
-import { Button } from "@/components/ui/button";
+'use client'
 
-import { MenuIcon } from "lucide-react";
-import Link from "next/link";
-import Menu from "./menu";
-import { Logout } from "@/components/icons";
-import { useAppSelector } from "@/redux/hooks";
-import { ModeToggle } from "@/components/mode-toggle";
-import { Spinner } from "@/components/spinner";
+import Link from "next/link"
+import { MenuIcon } from 'lucide-react'
+import { useAppSelector } from "@/redux/hooks"
 
-const LandingPageNavbar = () => {
-  const { isAuthenticated, isLoading } = useAppSelector((state) => state.auth);
+import { Button } from "@/components/ui/button"
+import { Spinner } from "@/components/spinner"
+import { ModeToggle } from "@/components/mode-toggle"
+import { Logout } from "@/components/icons"
+import GlassSheet from "@/components/global/glass-sheet"
+import { Menu } from "./menu"
 
-  const guestLinks = () => (
-    <>
-      {isLoading ? (
-        <Spinner size="lg" />
-      ) : (
-        <Button variant="outline" className="rounded-2xl flex gap-2">
-          <Logout />
-          Login
-        </Button>
-      )}
-    </>
-  );
+export function LandingPageNavbar() {
+  const { isAuthenticated, isLoading } = useAppSelector((state) => state.auth)
 
-  const authLinks = () => (
-    <>
-      {isLoading ? (
-        <Spinner size="lg" />
-      ) : (
-        <Link href="/X">Dashboard</Link>
-      )}
-    </>
-  );
+  const renderAuthLinks = () => {
+    if (isLoading) return <Spinner size="lg" />
+    return <Link href="/X ">Dashboard</Link>
+  }
+
+  const renderGuestLinks = () => {
+    if (isLoading) {
+      return (
+        <div className="flex items-center mx-9">
+          <Spinner />
+        </div>
+      )
+    }
+    return (
+      <Button variant="outline" className="rounded-2xl flex items-center">
+        <Logout />
+        <span>Login</span>
+      </Button>
+    )
+  }
 
   return (
-    <div className="w-full flex justify-between sticky top-0 items-center py-5 z-50">
-      <p className="font-bold text-2xl">PainFX.</p>
-      <Menu orientation="desktop" isAuthenticated={isAuthenticated} />
-
-      <div className="flex gap-2">
-        <Link href="/sign-in">
-          {isAuthenticated ? authLinks() : guestLinks()}
+    <nav className="sticky top-0 z-50 w-full backdrop-blur-sm">
+      <div className="container mx-auto flex items-center justify-between px-4">
+        {/* Logo */}
+        <Link href="/" className="flex items-center space-x-2">
+          <span className="font-bold text-2xl">PainFX.</span>
         </Link>
-        <div className="hidden lg:flex gap-2">
-        <ModeToggle  />
+        <div className="hidden lg:flex flex-1 justify-center">
+          <Menu orientation="desktop" isAuthenticated={isAuthenticated} />
         </div>
-        <GlassSheet
-          triggerClass="lg:hidden"
-          trigger={
-            <Button variant="ghost" className="hover:bg-transparent">
-              <MenuIcon size={30} />
-            </Button>
-          }
-        >
-          <Menu orientation="mobile" isAuthenticated={isAuthenticated} />
-        </GlassSheet>
-      </div>
-    </div>
-  );
-};
+        <div className="flex items-center gap-4">
+          <Link href="/sign-in">
+            {isAuthenticated ? renderAuthLinks() : renderGuestLinks()}
+          </Link>
+          
+          <div className="hidden lg:flex">
+            <ModeToggle />
+          </div>
 
-export default LandingPageNavbar;
+          <div className="lg:hidden">
+            <GlassSheet
+              triggerClass="lg:hidden"
+              trigger={
+                <Button variant="ghost" size="icon" className="hover:bg-transparent">
+                  <MenuIcon className="h-6 w-6" />
+                  <span className="sr-only">Open menu</span>
+                </Button>
+              }
+            >
+              <Menu orientation="mobile" isAuthenticated={isAuthenticated} />
+            </GlassSheet>
+          </div>
+        </div>
+      </div>
+    </nav>
+  )
+}

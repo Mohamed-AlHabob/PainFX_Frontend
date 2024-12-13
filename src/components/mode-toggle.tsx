@@ -10,7 +10,7 @@ export function ModeToggle() {
   const { setTheme } = useTheme();
 
   return (
-    <div className="space-y-2 bg-gray-100 dark:bg-gray-900 max-x-500 rounded-xl flex items-center">
+    <div className="space-y-2 border border-input bg-background shadow-sm max-x-500 rounded-xl flex items-center">
       <div className=" flex justify-between space-x-2">
         {CONSTANTS.modetoggle.map((item) => (
           <ActionTooltip
