@@ -26,19 +26,16 @@ export function CreateReservationDrawer() {
   const entityType = DoctorId ? "doctor" : "clinic";
   const entityValue = DoctorId || ClinicId;
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      await onCreateReservation();
-      onClose();
-    } catch (error) {
-      console.error("Error creating reservation:", error);
-    }
+    onCreateReservation();
+    onClose(); 
   };
 
   return (
-    <Drawer open={isModalOpen} onOpenChange={!isCreating ? onClose : undefined}>
+    <Drawer open={isModalOpen} onOpenChange={onClose}>
       <DrawerContent className="overflow-hidden">
+        <div className="mx-56">
         <DrawerHeader>
           <DrawerTitle>Create Reservation</DrawerTitle>
           <DrawerDescription>
@@ -53,13 +50,9 @@ export function CreateReservationDrawer() {
               type="date"
               {...register("reservation_date", { required: "Reservation date is required" })}
               className={errors.reservation_date ? "border-red-500" : ""}
-              aria-invalid={errors.reservation_date ? "true" : "false"}
-              aria-describedby={errors.reservation_date ? "reservation_date_error" : undefined}
             />
             {errors.reservation_date && (
-              <p id="reservation_date_error" className="text-red-500 text-sm">
-                {errors.reservation_date.message}
-              </p>
+              <p className="text-red-500 text-sm">{errors.reservation_date.message}</p>
             )}
           </div>
           <div className="space-y-2">
@@ -69,13 +62,9 @@ export function CreateReservationDrawer() {
               type="time"
               {...register("reservation_time", { required: "Reservation time is required" })}
               className={errors.reservation_time ? "border-red-500" : ""}
-              aria-invalid={errors.reservation_time ? "true" : "false"}
-              aria-describedby={errors.reservation_time ? "reservation_time_error" : undefined}
             />
             {errors.reservation_time && (
-              <p id="reservation_time_error" className="text-red-500 text-sm">
-                {errors.reservation_time.message}
-              </p>
+              <p className="text-red-500 text-sm">{errors.reservation_time.message}</p>
             )}
           </div>
           <div className="space-y-2 hidden">
@@ -86,17 +75,13 @@ export function CreateReservationDrawer() {
               id={entityType}
               defaultValue={entityValue}
               type="text"
-              {...register(entityType as "id", { required: `${entityType} is required` })}
-              // className={errors[entityType as "doctor" | "clinic"] ? "border-red-500" : ""}
-              readOnly
-              aria-invalid={errors[entityType as "id"] ? "true" : "false"}
-              // aria-describedby={errors[entityType as "doctor" | "clinic"] ? `${entityType}_error` : undefined}
+              {...register(entityType, { required: `${entityType} is required` })}
+              className={errors[entityType] ? "border-red-500" : ""}
+              readOnly 
             />
-            {/* {errors[entityType as "doctor" | "clinic"] && (
-              <p id={`${entityType}_error`} className="text-red-500 text-sm">
-                {errors[entityType as "doctor" | "clinic"]?.message}
-              </p>
-            )} */}
+            {errors[entityType] && (
+              <p className="text-red-500 text-sm">{errors[entityType].message}</p>
+            )}
           </div>
           <DrawerFooter>
             <Button type="submit" className="w-full" disabled={isCreating}>
@@ -110,12 +95,13 @@ export function CreateReservationDrawer() {
               )}
             </Button>
             <DrawerClose asChild>
-              <Button variant="outline" onClick={!isCreating ? onClose : undefined}>
+              <Button variant="outline" onClick={onClose}>
                 Cancel
               </Button>
             </DrawerClose>
           </DrawerFooter>
         </form>
+        </div>
       </DrawerContent>
     </Drawer>
   );
