@@ -1,4 +1,5 @@
 "use client"
+import { ModeToggle } from "@/components/mode-toggle"
 import { Card, CardContent } from "@/components/ui/card"
 import { CONSTANTS } from "@/constants"
 import { useNavigation } from "@/hooks/navigation"
@@ -64,6 +65,10 @@ const Menu = ({ orientation, isAuthenticated }: MenuProps) => {
               {menuItem.label}
             </Link>
           ))}
+          <div className="flex justify-center items-center mt-96 mx-6">
+            {/* <p>mode</p> */}
+            <ModeToggle />
+          </div>
         </div>
       )
     default:

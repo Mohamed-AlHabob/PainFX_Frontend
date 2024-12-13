@@ -45,7 +45,9 @@ const LandingPageNavbar = () => {
         <Link href="/sign-in">
           {isAuthenticated ? authLinks() : guestLinks()}
         </Link>
-        <ModeToggle />
+        <div className="hidden lg:flex gap-2">
+        <ModeToggle  />
+        </div>
         <GlassSheet
           triggerClass="lg:hidden"
           trigger={
