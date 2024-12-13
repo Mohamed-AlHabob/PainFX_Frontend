@@ -89,7 +89,9 @@ export const UserDropDown = () => {
 
         <div className="space-y-4">
           <h3 className="text-sm text-muted-foreground">Preferences</h3>
-          <ModeToggle title="Theme" />
+          <div>
+          <ModeToggle />
+          </div>
           <SwitchLanguage />
         </div>
 

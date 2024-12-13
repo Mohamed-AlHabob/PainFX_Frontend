@@ -13,11 +13,17 @@ const GroupSideWidget = () => {
         "border-themeGray lg:sticky lg:top-0 mt-10 lg:mt-0 rounded-xl overflow-hidden",
       )}
     >
-      <img
-        src={'https://brave.com/static-assets/images/optimized/blog/photo-scholarship/images/student-ntp-sam-richter.webp'}
-        alt="thumbnail"
-        className="w-full aspect-video"
-      />
+     <Image
+      alt="Mountains"
+      src={'https://brave.com/static-assets/images/optimized/blog/photo-scholarship/images/student-ntp-sam-richter.webp'}
+      placeholder="blur"
+      quality={100}
+      fill
+      sizes="100vw"
+      style={{
+        objectFit: 'cover',
+      }}
+    />
       <div className="flex flex-col p-5 gap-y-2">
         <h2 className="font-bold text-lg">Test</h2>
         <p className="text-sm text-themeTextGray">

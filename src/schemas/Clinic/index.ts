@@ -13,6 +13,7 @@ export const clinicSchema = z.object({
   owner: userProfileSchema.nullable().optional(),
   doctors: z.array(doctorSchema).nullable().optional(),
   icon: z.string().nullable().optional(),
+  active: z.boolean().nullable().optional(),
   reservation_open : z.boolean().nullable().optional(),
   privacy: z.boolean().nullable().optional(),
   description: z.string().nullable().optional(),

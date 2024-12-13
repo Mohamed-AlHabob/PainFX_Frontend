@@ -1,6 +1,6 @@
 interface StatCardProps {
     title: string
-    value: string
+    value: number
     period: string
   }
   

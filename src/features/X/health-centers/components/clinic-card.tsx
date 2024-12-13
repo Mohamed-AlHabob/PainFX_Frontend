@@ -17,7 +17,7 @@ import { NoResult } from '@/components/global/no-results';
 export default function KaggleTimelineEnhanced() {
   const {onOpen} = useModal()
   const [expandedClinic, setExpandedClinic] = useState<string | null>(null);
-  const { data, isLoading, error } = useGetClinicsQuery('');
+  const { data, isLoading, error } = useGetClinicsQuery({page: 1});
  
   const toggleExpandedClinic = (id: string) => {
     setExpandedClinic((prev) => (prev === id ? null : id));
@@ -62,7 +62,7 @@ export default function KaggleTimelineEnhanced() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
       >
-        {data?.map((clinic: Clinic) => (
+        {data?.results.map((clinic: Clinic) => (
           <Card 
             key={clinic.id}
             className="w-full max-w-2xl mb-6 overflow-hidden bg-gradient-to-br from-[#2D3035] to-[#3D4045] shadow-lg"
@@ -114,7 +114,7 @@ export default function KaggleTimelineEnhanced() {
                 <p className="text-sm text-gray-300 leading-relaxed">{clinic.description}</p>
                 <div className="space-y-2">
                   <h3 className="text-white font-medium mb-4">Doctors</h3>
-                  {clinic?.doctors.map((doctor, i) => (
+                  {clinic?.doctors?.map((doctor, i) => (
                     <div key={doctor.id} className="flex items-center gap-4 p-2 rounded hover:bg-white/5">
                       <div className="w-6 h-6 rounded-full bg-zinc-800 flex items-center justify-center text-sm text-white">
                         {i + 1}

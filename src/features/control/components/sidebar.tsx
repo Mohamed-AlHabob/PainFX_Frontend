@@ -55,7 +55,7 @@ export function Sidebar() {
   )
 }
 
-function NavItem({ href, icon: Icon, children }: { href: string; icon; children: React.ReactNode }) {
+function NavItem({ href, icon: Icon, children }: { href: string; icon: React.ElementType; children: React.ReactNode }) {
   return (
     <Link
       href={href}
@@ -69,4 +69,3 @@ function NavItem({ href, icon: Icon, children }: { href: string; icon; children:
     </Link>
   )
 }
-

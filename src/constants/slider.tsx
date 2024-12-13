@@ -8,6 +8,7 @@ import {
   SocialMedia,
   Tech,
 } from "@/components/icons"
+import { JSX } from "react"
 
 export type ReasonsListProps = {
   id: string

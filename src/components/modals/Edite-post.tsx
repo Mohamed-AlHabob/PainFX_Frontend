@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button} from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal-store";
-import { usePosts } from "@/hooks/Social/post";
+import { PostFormValues, usePosts } from "@/hooks/Social/post";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
@@ -26,23 +26,28 @@ export function EditPostModal() {
 
   const postId = data?.Post?.id || "";
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    const values = {
-      title: e.target.title.value,
-      type: e.target.type.value,
-      content: e.target.content.value,
-      video_file: e.target.video_file.value,
-      video_url: e.target.video_url.value,
-      thumbnail_url: e.target.thumbnail_url.value,
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const values: Partial<PostFormValues> = {
+      title: formData.get('title') as string,
+      content: formData.get('content') as string,
+      video_url: formData.get('video_url') as string,
+      thumbnail_url: formData.get('thumbnail_url') as string,
+    };
+    
+    const videoFile = formData.get('video_file') as File | null;
+    if (videoFile instanceof File) {
+      values.video_file = videoFile;
     }
-    updatePost(postId, values)
+
+    updatePost(postId, values);
     onClose();
-  }
+  };
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent className="p-0 overflow-hidden">
+      <DialogContent className=" overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Edit Post

@@ -14,11 +14,9 @@ import { useCreatePatientMutation } from '@/redux/services/booking/PatientApiSli
 import { useCreateDoctorMutation } from '@/redux/services/booking/DoctorApiSlice'
 import { useCreateClinicMutation } from '@/redux/services/booking/ClinicApiSlice'
 
-// Define the role options
 const roleOptions = ['patient', 'doctor', 'clinic'] as const
 type Role = typeof roleOptions[number]
 
-// Define the schema for the role selection step
 const RoleSelectionSchema = z.object({
   role: z.enum(roleOptions),
 })
@@ -33,13 +31,12 @@ export const useComplete = () => {
   const [createDoctor] = useCreateDoctorMutation()
   const [createClinic] = useCreateClinicMutation()
 
-  // Form for user profile
+
   const profileForm = useForm<z.infer<typeof createUpdateUserProfileSchema>>({
     resolver: zodResolver(createUpdateUserProfileSchema),
     mode: 'onBlur',
   })
 
-  // Form for role selection
   const roleForm = useForm<z.infer<typeof RoleSelectionSchema>>({
     resolver: zodResolver(RoleSelectionSchema),
     mode: 'onBlur',
@@ -68,8 +65,7 @@ export const useComplete = () => {
     setStep('details')
   })
 
-  // Handle final details submission based on selected role
-  const handleDetailsSubmit = async (values) => {
+  const handleDetailsSubmit = async (values: any) => {
     let createFunction
     let successMessage
     let redirectPath

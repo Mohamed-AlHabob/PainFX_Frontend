@@ -2,18 +2,18 @@ import PasswordResetConfirmForm from '@/components/forms/password_rest/PasswordR
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-	title: 'Full Auth | Password Reset Confirm',
-	description: 'Full Auth password reset confirm page',
+	title: 'PainFX | Password Reset Confirm',
+	description: 'PainFX password reset confirm page',
 };
 
-interface Props {
-	params: {
-		uid: string;
-		token: string;
-	};
-}
+type Props = {
+	params: Promise<{ uid: string ,token:string}>
+	
+  }
+export default async function ResetPasswordPage({  params  }: Props) {
+	const uid = (await params).uid
+	const token = (await params).token
 
-export default function ResetPasswordPage({ params: { uid, token } }: Props) {
 	return (
 		<>
 		<h5 className="font-bold text-base text-themeTextWhite">Login</h5>

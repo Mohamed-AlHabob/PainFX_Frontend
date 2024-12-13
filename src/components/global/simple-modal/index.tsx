@@ -7,8 +7,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { JSX } from "react";
 
-type ModalType = "Integration" | "Default"; // Extend as needed
+type ModalType = "Integration" | "Default";
 
 type SimpleModalProps = {
   trigger: JSX.Element;

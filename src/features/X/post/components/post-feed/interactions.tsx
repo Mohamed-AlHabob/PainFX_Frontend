@@ -20,7 +20,7 @@ const Interactions: React.FC<LikeButtonProps> = ({ postId, initialLikeCount,comm
   const { data: user } = useRetrieveUserQuery();
   const userId = user?.id;
 
-  const { data: userLike, isLoading: isFetchingLike } = useGetUserLikeQuery({ postId, userId: userId || 0 }, { skip: !userId });
+  const { data: userLike, isLoading: isFetchingLike } = useGetUserLikeQuery({ postId, userId: userId || "" }, { skip: !userId });
 
   const [isLiked, setIsLiked] = useState<boolean>(!!userLike);
   const [likeCount, setLikeCount] = useState<number>(initialLikeCount);
@@ -46,13 +46,12 @@ const Interactions: React.FC<LikeButtonProps> = ({ postId, initialLikeCount,comm
     try {
       await likePost({ post: postId }).unwrap();
       toast.success('Post liked!');
-    } catch (error) {
+    } catch (error : any) {
       setIsLiked(false);
       setLikeCount((prev) => prev - 1);
       toast.error(extractErrorMessage(error));
     }
   }, [isLiked, likePost, postId, userId]);
-
   const handleUnlike = useCallback(async () => {
     if (!isLiked || !userLike) return;
 
@@ -60,14 +59,17 @@ const Interactions: React.FC<LikeButtonProps> = ({ postId, initialLikeCount,comm
     setLikeCount((prev) => prev - 1);
 
     try {
-      await unlikePost({ id: userLike.id }).unwrap();
+      await unlikePost({
+        id: userLike.id,
+        postId: postId
+      }).unwrap();
       toast.success('Like removed!');
-    } catch (error) {
+    } catch (error :any) {
       setIsLiked(true);
       setLikeCount((prev) => prev + 1);
       toast.error(extractErrorMessage(error));
     }
-  }, [isLiked, unlikePost, userLike]);
+  }, [isLiked, postId, unlikePost, userLike]);
 
   return (
     <div
@@ -101,8 +103,6 @@ const Interactions: React.FC<LikeButtonProps> = ({ postId, initialLikeCount,comm
       </motion.button>
          <motion.button
          whileTap={{ scale: 0.9 }}
-         onClick={isLiked ? handleUnlike : handleLike}
-         disabled={isLiking || isUnliking || isFetchingLike}
          aria-label={isLiked ? 'Unlike post' : 'Like post'}
          className={`flex gap-5 text-[#757272] text-sm ${
            isLiked ? 'text-red-500' : 'text-gray-500'

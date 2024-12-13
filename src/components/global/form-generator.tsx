@@ -1,10 +1,22 @@
 import React from "react";
-import { Controller, UseFormRegister, FieldErrors, FieldValues, Control, RegisterOptions } from "react-hook-form";
+import {
+  Controller,
+  UseFormRegister,
+  FieldErrors,
+  FieldValues,
+  Control,
+  RegisterOptions,
+} from "react-hook-form";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import { Input } from "../ui/input";
-
 
 type FormGeneratorProps = {
   name: string;
@@ -13,100 +25,93 @@ type FormGeneratorProps = {
   placeholder?: string;
   disabled?: boolean;
   rows?: number;
-  register?: UseFormRegister<FieldValues>;
+  register?: UseFormRegister<any>;
   errors: FieldErrors<FieldValues>;
-  control?: Control<FieldValues>;
+  control?: Control<any>;
   defaultValue?: unknown;
   rules?: RegisterOptions<FieldValues>;
   options?: { value: string; label: string }[];
 };
+
 const FormGenerator: React.FC<FormGeneratorProps> = ({
   name,
   label,
   type = "text",
   placeholder,
   disabled,
-  rows,
+  rows = 4,
   register,
   errors,
   control,
-  defaultValue,
+  defaultValue = "",
   rules,
   options,
 }) => {
-
-  const renderErrorMessage = (name: string) => {
-    return errors[name] ? (
-      <span className="text-red-500 text-sm">{errors[name].message}</span>
-    ) : null;
+  const renderErrorMessage = () => {
+    const error = errors[name]?.message;
+    if (typeof error === "string") {
+      return (
+        <p className="text-red-400 mt-2">
+          {error === "Required" ? "This field is required" : error}
+        </p>
+      );
+    }
+    return null;
   };
 
-  const isTextArea = type === "textarea";
-  const isSelect = type === "select";
-
   return (
-    <>
-      {isTextArea ? (
+    <Label className="flex flex-col gap-3" htmlFor={name}>
+      {label && <span>{label}</span>}
+      {type === "textarea" ? (
         <Controller
           name={name}
           control={control}
           defaultValue={defaultValue}
           rules={rules}
           render={({ field }) => (
-            <Label className="flex flex-col gap-2" htmlFor={`textarea-${name}`}>
-              {label && <span>{label}</span>}
-              <Textarea
-                id={`textarea-${name}`}
-                placeholder={placeholder}
-                disabled={disabled}
-                rows={rows}
-                {...field}
-              />
-              {renderErrorMessage(name)}
-            </Label>
+            <Textarea
+              id={name}
+              placeholder={placeholder}
+              disabled={disabled}
+              rows={rows}
+              {...field}
+            />
           )}
         />
-      ) : isSelect ? (
+      ) : type === "select" ? (
         <Controller
           name={name}
           control={control}
           defaultValue={defaultValue}
           rules={rules}
           render={({ field }) => (
-            <Label className="flex flex-col gap-2" htmlFor={`select-${name}`}>
-              {label && <span>{label}</span>}
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder={placeholder} />
-                </SelectTrigger>
-                <SelectContent>
-                  {options?.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {renderErrorMessage(name)}
-            </Label>
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder={placeholder} />
+              </SelectTrigger>
+              <SelectContent>
+                {options?.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           )}
         />
       ) : (
-        <Label className="flex flex-col gap-3" htmlFor={`input-${name}`}>
-          {label && <span>{label}</span>}
-          <Input
-            id={`input-${name}`}
-            type={type === "date" ? "date" : type}
-            placeholder={type === "date" ? "YYYY-MM-DD" : placeholder}
-            disabled={disabled}
-            {...(register && register(name))}
-          />
-          {renderErrorMessage(name)}
-        </Label>
+        <Input
+          id={name}
+          type={type}
+          placeholder={type === "date" ? "YYYY-MM-DD" : placeholder}
+          disabled={disabled}
+          defaultValue={defaultValue as string}
+          {...(register && register(name, rules))}
+        />
       )}
-    </>
+      {renderErrorMessage()}
+    </Label>
   );
 };
 
 export default FormGenerator;
-

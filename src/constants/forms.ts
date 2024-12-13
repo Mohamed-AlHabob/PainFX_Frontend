@@ -5,9 +5,6 @@ export type FormProps = {
   type?: "text" | "email" |"textarea" | "password" | "number" | "date" | "select";
   placeholder?: string;
   rows?: number;
-  control?;
-  defaultValue?;
-  rules?;
   options?: { value: string; label: string }[];
 }
 export const SIGN_UP_FORM: FormProps[] = [

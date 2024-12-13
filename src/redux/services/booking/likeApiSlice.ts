@@ -1,7 +1,6 @@
 import { apiSlice } from '../../services/apiSlice';
 import { likeListSchema, createUpdateLikeSchema, Like } from '../../../schemas/Social';
 
-
 export interface LikeListResponse {
   count: number;
   next: string | null;
@@ -15,10 +14,10 @@ export interface CreateLikeRequest {
 
 export interface UnlikeLikeRequest {
   id: string;
+  postId: string;
 }
 
 export const likeApiSlice = apiSlice.injectEndpoints({
-  
   endpoints: (builder) => ({
     getLikes: builder.query<LikeListResponse, { postId: string; page?: number }>({
       query: ({ postId, page = 1 }) => `likes/?post_id=${postId}&page=${page}`,
@@ -26,7 +25,7 @@ export const likeApiSlice = apiSlice.injectEndpoints({
         likeListSchema.parse(response);
         return response;
       },
-      providesTags: (result,) =>
+      providesTags: (result) =>
         result
           ? [
               ...result.results.map(({ id }) => ({ type: 'Like' as const, id })),
@@ -42,7 +41,10 @@ export const likeApiSlice = apiSlice.injectEndpoints({
       },
       providesTags: (result) =>
         result
-          ? [{ type: 'Like', id: result.id }]
+          ? [
+              { type: 'Like', id: result.id },
+              { type: 'Like', id: `USER_POST_${result.user}_${result.post}` },
+            ]
           : [{ type: 'Like', id: 'LIST' }],
     }),
     likePost: builder.mutation<Like, CreateLikeRequest>({
@@ -58,15 +60,20 @@ export const likeApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: [{ type: 'Like', id: 'LIST' }],
       async onQueryStarted({ post }, { dispatch, queryFulfilled }) {
         const userId = "4121ee66-153c-4200-906c-88337e53dea1";
+        const tempId = `temp-${Math.random()}`;
 
+        // Optimistic Update
         const patchResult = dispatch(
-          apiSlice.util.updateQueryData('getLikes', { postId: post, page: 1 }, (draft) => {
+          likeApiSlice.util.updateQueryData('getLikes', { postId: post, page: 1 }, (draft) => {
             draft.results.push({
-              id: Math.random(),
+              id: tempId,
               post,
-              user: userId || 0,
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString(),
+              user: {
+                id: userId,
+                email: '',
+              },
+              // created_at: new Date().toISOString(),
+              // updated_at: new Date().toISOString(),
             });
             draft.count += 1;
           })
@@ -75,39 +82,40 @@ export const likeApiSlice = apiSlice.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           dispatch(
-            apiSlice.util.updateQueryData('getLikes', { postId: post, page: 1 }, (draft) => {
-              const index = draft.results.findIndex((like) => like.id === Math.random());
+            likeApiSlice.util.updateQueryData('getLikes', { postId: post, page: 1 }, (draft) => {
+              const index = draft.results.findIndex((like) => like.id === tempId);
               if (index !== -1) {
                 draft.results[index] = data;
               }
             })
           );
-        } catch {
+        } catch (error) {
+          console.error('Failed to update like:', error);
           patchResult.undo();
         }
-      },
-    }),
+      },    }),
     unlikePost: builder.mutation<{ success: boolean; id: string }, UnlikeLikeRequest>({
       query: ({ id }) => ({
         url: `likes/${id}/`,
         method: 'DELETE',
       }),
-      invalidatesTags: ({ id }) => [{ type: 'Like', id }],
+      invalidatesTags: (result) => result ? [{ type: 'Like', id: result.id }] : [],
       async onQueryStarted({ id, postId }, { dispatch, queryFulfilled }) {
         // Optimistic Update
         const patchResult = dispatch(
-          apiSlice.util.updateQueryData('getLikes', { postId, page: 1 }, (draft) => {
+          likeApiSlice.util.updateQueryData('getLikes', { postId, page: 1 }, (draft) => {
             draft.results = draft.results.filter((like) => like.id !== id);
             draft.count -= 1;
           })
         );
+
         try {
           await queryFulfilled;
-        } catch {
+        } catch (error) {
+          console.error('Failed to unlike post:', error);
           patchResult.undo();
         }
-      },
-    }),
+      },    }),
   }),
   overrideExisting: false,
 });

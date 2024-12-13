@@ -12,7 +12,7 @@ const baseQuery = fetchBaseQuery({
 });
 
 interface ExtraOptions {
-  [key: string];
+  [key: string]: any;
 }
 
 const baseQueryWithReauth: BaseQueryFn<

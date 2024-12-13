@@ -44,7 +44,7 @@ export function ReservationList() {
   <Spinner />
 </div> ;
 
-  if (!reservations || error || reservations.count === 0) {
+  if (!reservations || error) {
     return <NoResult message={''} backTo={''}/>;
   }
 
@@ -125,7 +125,7 @@ export function ReservationList() {
                 </TableRow>
               </TableHeader>
           <TableBody>
-            {reservations.map((reservation : Reservation) => (
+            {Array.isArray(reservations) && reservations.map((reservation : Reservation) => (
               <TableRow key={reservation.id}>
                 <TableCell>
                  <div className="flex items-center gap-3">
@@ -164,7 +164,7 @@ export function ReservationList() {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      {user?.role === "doctor"&&"clinic" ? (
+                      {user?.role === "doctor" || user?.role === "clinic" ? (
                       <>
                       <DropdownMenuItem>
                         <Link href={`/branch/reservations/${reservation.id}`}>View</Link>

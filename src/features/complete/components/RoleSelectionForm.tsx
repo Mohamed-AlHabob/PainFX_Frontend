@@ -7,7 +7,6 @@ import { Label } from '@/components/ui/label'
 import { z } from 'zod'
 import { motion } from 'framer-motion'
 
-
 const RoleSelectionSchema = z.object({
   role: z.enum(['patient', 'doctor', 'clinic']),
 })
@@ -29,7 +28,7 @@ export function RoleSelectionForm({ form, onSubmit }: RoleSelectionFormProps) {
   return (
 
     <form onSubmit={onSubmit} className="space-y-6">
-      <RadioGroup onValueChange={(value) => form.setValue('role', value)} className="space-y-4">
+      <RadioGroup onValueChange={(value: "patient" | "doctor" | "clinic") => form.setValue('role', value)} className="space-y-4">
         {roleOptions.map((option) => (
           <motion.div
             key={option.value}

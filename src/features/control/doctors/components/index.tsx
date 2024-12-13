@@ -93,18 +93,18 @@ export default function DoctorsPage() {
         </TableRow>
       </TableHeader>
   <TableBody>
-    {doctors.map((doctor, index) => (
-      <TableRow key={doctor.user?.id || index}>
+    {doctors.map((doctor: { address?: string; name?: string | null; id?: string; description?: string | null; specialization?: { name?: string | null; id?: string; } | null; user?: { id: string; first_name: string; last_name: string; email: string; profile: { phone_number: string; avatar: string; address: string; }; date_joined: string; last_login: Date; }; }, index: number) => (
+      <TableRow key={doctor.user?.id || doctor.id || index}>
         <TableCell>
          <div className="flex items-center gap-3">
             <UserCard
-              name={`${doctor.user?.first_name || 'Unknown'} ${doctor.user?.last_name || ''}`}
+              name={`${doctor.user?.first_name || doctor.name || 'Unknown'} ${doctor.user?.last_name || ''}`}
               email={doctor.user?.email || ''}
               phone_number={doctor.user?.profile?.phone_number || ''}
               avatar={doctor.user?.profile?.avatar || ''}
               joined={doctor.user?.date_joined || ''}
-              address={doctor.user?.profile?.address || ''}
-              id={doctor.user?.id || ''}
+              address={doctor.user?.profile?.address || doctor.address || ''}
+              id={doctor.user?.id || doctor.id || ''}
             />
           </div>
         </TableCell>
@@ -130,7 +130,7 @@ export default function DoctorsPage() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem>
-                <Link href={`/branch/reservations/${doctor.user?.id}`}>View</Link>
+                <Link href={`/branch/reservations/${doctor.user?.id || doctor.id}`}>View</Link>
               </DropdownMenuItem>
 
               <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
@@ -138,7 +138,8 @@ export default function DoctorsPage() {
           </DropdownMenu>
         </TableCell>
       </TableRow>
-    ))}  </TableBody>
+    ))}
+  </TableBody>
 </Table>
 </div>
 </Tabs>

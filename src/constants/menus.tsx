@@ -4,6 +4,7 @@ import {
   Home,
 } from "@/components/icons"
 import { Monitor, Moon, Sun } from "lucide-react"
+import { JSX } from "react"
 
 export type MenuProps = {
   id: string

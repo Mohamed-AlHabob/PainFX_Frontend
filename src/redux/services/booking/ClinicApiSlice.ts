@@ -2,6 +2,7 @@ import { apiSlice } from "@/redux/services/apiSlice";
 import { Clinic, clinicSchema, createUpdateClinicSchema } from "@/schemas/Clinic";
 
 export interface ClinicListResponse {
+  length: number;
   count: number;
   next: string | null;
   previous: string | null;
@@ -14,7 +15,7 @@ export const clinicApiSlice = apiSlice.injectEndpoints({
       query: ({ page = 1 }) => `clinics/?page=${page}`,
       transformResponse: (response: ClinicListResponse) => {
         clinicSchema.parse(response);
-        return response?.results;
+        return response;
       },
     }),
     getClinicById: builder.query({
@@ -52,8 +53,7 @@ export const clinicApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
       }),
     }),
-  }),
-  overrideExisting: false,
+  }),  overrideExisting: false,
 });
 
 export const {

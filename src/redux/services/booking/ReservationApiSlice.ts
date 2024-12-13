@@ -6,11 +6,10 @@ export const reservationApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getReservations: builder.query({
       query: () => 'reservations/',
-      transformResponse: (response) => {
+      transformResponse: (response: unknown) => {
         reservationSchema.parse(response);
-        return response.results;
-      },
-    }),
+        return (response as { results: unknown }).results;
+      },    }),
     getReservation: builder.query({
       query: (id) => `reservations/${id}/`,
       transformResponse: (response) => {

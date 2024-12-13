@@ -4,9 +4,7 @@ import { AppDispatch } from "@/redux/store"
 import { useQuery } from "@tanstack/react-query"
 import { useEffect, useRef } from "react"
 import { useDispatch } from "react-redux"
-export const useInfiniteScroll = (
-  
-) => {
+export const useInfiniteScroll = () => {
   const observerElement = useRef<HTMLDivElement>(null)
   const dispatch: AppDispatch = useDispatch()
   const {  } = useAppSelector((state) => state.infiniteScroll)

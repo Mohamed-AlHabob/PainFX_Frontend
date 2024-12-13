@@ -13,19 +13,10 @@ type Props = {
 }
 
 const InfiniteScrollObserver = ({
-  action,
   children,
-  identifier,
-  paginate,
-  search,
   loading,
 }: Props) => {
-  const { observerElement, isFetching } = useInfiniteScroll(
-    action,
-    identifier,
-    paginate,
-    search,
-  )
+  const { observerElement, isFetching } = useInfiniteScroll()
 
   return (
     <>

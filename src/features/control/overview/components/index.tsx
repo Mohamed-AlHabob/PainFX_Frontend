@@ -9,7 +9,7 @@ export default function OverviewPage() {
   const { data, isLoading, isError } = useGetClinicsQuery({ page: 1 });
 
   console.log("Clinic Data:", data);
-  const clinic = data?.[0] || null;
+  const clinic = data?.results?.[0] || null;
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -22,9 +22,9 @@ export default function OverviewPage() {
   const ownerName = clinic?.owner?.first_name
     ? `${clinic.owner?.first_name} ${clinic.owner.last_name}`
     : "Owner";
-  const activeReservations = clinic?.activeReservations || 0; 
-  const reservationsOfTheDay = clinic?.reservationsOfTheDay || 0;
-  const totalPatients = clinic?.totalPatients || 0;
+  const activeReservations = 0; 
+  const reservationsOfTheDay =  0;
+  const totalPatients =  0;
 
   return (
     <>

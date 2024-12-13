@@ -52,7 +52,7 @@ export const useReservations = () => {
           }
         );
         reset();
-      } catch (error) {
+      } catch (error : any) {
         toast.error(extractErrorMessage(error));
       }
     });
@@ -74,7 +74,7 @@ export const useReservations = () => {
           }
         );
         reset();
-      } catch (error) {
+    } catch (error : any) {
         toast.error(extractErrorMessage(error));
       }
     });
@@ -94,7 +94,7 @@ export const useReservations = () => {
           error: (error) => extractErrorMessage(error),
         }
       );
-    } catch (error) {
+    } catch (error : any) {
       toast.error(extractErrorMessage(error));
       throw error;
     }
@@ -114,7 +114,7 @@ export const useReservations = () => {
           error: (error) => extractErrorMessage(error),
         }
       );
-    } catch (error) {
+    } catch (error : any) {
       toast.error(extractErrorMessage(error));
     }
   }, [deleteReservation, reset, refetchReservations]);

@@ -17,7 +17,7 @@ export default function useSocialAuth(authenticate: unknown, provider: string) {
     const state = searchParams.get('state');
     const code = searchParams.get('code');
 
-    if (state && code) {
+    if (state && code && typeof authenticate === 'function') {
       authenticate({ provider, state, code })
         .unwrap()
         .then(() => {
@@ -25,7 +25,7 @@ export default function useSocialAuth(authenticate: unknown, provider: string) {
           toast.success('Successfully logged in!');
           router.push('/X/post');
         })
-        .catch((error) => {
+        .catch((error : any) => {
           const errorMessage = extractErrorMessage(error);
           toast.error(`Authentication failed: ${errorMessage}`);
           router.push('/sign-in');
@@ -39,6 +39,5 @@ export default function useSocialAuth(authenticate: unknown, provider: string) {
       effectRan.current = false;
     };
   }, [authenticate, provider, searchParams, dispatch, router]);
-
   return {};
 }

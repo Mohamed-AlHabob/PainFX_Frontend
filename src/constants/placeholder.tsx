@@ -6,6 +6,7 @@ import {
   Heart,
   MegaPhone,
 } from "@/components/icons"
+import { JSX } from "react"
 
 export type CreateAuthenPlaceholderProps = {
   id: string

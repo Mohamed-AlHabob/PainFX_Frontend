@@ -1,45 +1,24 @@
-'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import ActivitingConfirmForm from '@/components/forms/activating/activating-form-confirm';
+import type { Metadata } from 'next';
 
-import { toast } from 'sonner';
-import { useActivationMutation } from '@/redux/services/auth/authApiSlice';
+export const metadata: Metadata = {
+	title: 'PainFX | Password Reset Confirm',
+	description: 'PainFX password reset confirm page',
+};
 
-interface PageProps {
-	params: {
-		uid: string;
-		token: string;
-	};
-}
+type Props = {
+	params: Promise<{ uid: string ,token:string}>
+	
+  }
+export default async function ActivatingPage({  params  }: Props) {
+  const uid = (await params).uid
+  const token = (await params).token
 
-export default function Page({ params }: PageProps) {
-	const router = useRouter();
-	const [activation] = useActivationMutation();
-
-	useEffect(() => {
-		const { uid, token } = params;
-
-		activation({ uid, token })
-			.unwrap()
-			.then(() => {
-				toast.success('Account activated');
-			})
-			.catch(() => {
-				toast.error('Failed to activate account');
-			})
-			.finally(() => {
-				router.push('/sign-in');
-			});
-	}, [activation, router, params]);
 
 	return (
-		<div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
-			<div className='sm:mx-auto sm:w-full sm:max-w-sm'>
-				<h1 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight'>
-					Activating your account...
-				</h1>
-			</div>
-		</div>
+    <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
+      <ActivitingConfirmForm uid={uid} token={token}/>
+    </div>
 	);
 }

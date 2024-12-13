@@ -14,9 +14,11 @@ import { Separator } from '@/components/ui/separator'
 import { UserDropDown } from '@/components/global/user-widget/user'
 import { Logo, LogoDark } from '@/components/icons/logo'
 import { useGetClinicsQuery } from '@/redux/services/booking/ClinicApiSlice'
+import { Clinic } from '@/schemas'
 
 export function NavBar() {
- const {data:clinic} = useGetClinicsQuery("")
+ const {data} = useGetClinicsQuery({page:1})
+ const clinic = data as Clinic
   return (
     <header className="border-b">
       <div className="flex h-14 items-center px-4 gap-4">

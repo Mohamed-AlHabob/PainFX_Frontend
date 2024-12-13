@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -13,7 +14,7 @@ import { createUpdatePostSchema } from "@/schemas/Social/post";
 import { useCallback } from "react";
 import { extractErrorMessage } from "@/hooks/error-handling";
 
-interface PostFormValues {
+export interface PostFormValues {
   id?: string;
   title: string;
   content: string;
@@ -50,12 +51,12 @@ export const usePosts = () => {
               await refetchPosts();
               return "Post created successfully!";
             },
-            error: (error: unknown) => extractErrorMessage(error),
+            error: (error: any) => extractErrorMessage(error),
           }
         );
         reset();
       }
-      catch (error: unknown) {
+      catch (error: any) {
         toast.error(extractErrorMessage(error));
       }
     })();
@@ -78,7 +79,7 @@ export const usePosts = () => {
           }
         );
         reset();
-      } catch (error:unknown) {
+      } catch (error:any) {
         toast.error(extractErrorMessage(error));
       }
     })();
@@ -98,7 +99,7 @@ export const usePosts = () => {
           error: (error) => extractErrorMessage(error),
         }
       );
-    } catch (error: unknown) {
+    } catch (error: any) {
       toast.error(extractErrorMessage(error));
       throw error;
     }
@@ -118,7 +119,7 @@ export const usePosts = () => {
           error: (error) => extractErrorMessage(error),
         }
       );
-    } catch (error: unknown) {
+    } catch (error: any) {
       toast.error(extractErrorMessage(error));
     }
   }, [deletePost, reset, refetchPosts]);
