@@ -103,6 +103,7 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
         <Input
           id={name}
           type={type}
+           className="dark:bg-themeBlack  text-themeTextGray bg-gray-200"
           placeholder={type === "date" ? "YYYY-MM-DD" : placeholder}
           disabled={disabled}
           defaultValue={defaultValue as string}

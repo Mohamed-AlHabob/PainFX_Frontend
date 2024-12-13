@@ -75,12 +75,12 @@ export function CreateReservationDrawer() {
               id={entityType}
               defaultValue={entityValue}
               type="text"
-              {...register(entityType, { required: `${entityType} is required` })}
-              className={errors[entityType] ? "border-red-500" : ""}
+              {...register(entityType as "id", { required: `${entityType} is required` })}
+              className={errors[entityType as keyof typeof errors] ? "border-red-500" : ""}
               readOnly 
             />
-            {errors[entityType] && (
-              <p className="text-red-500 text-sm">{errors[entityType].message}</p>
+            {errors[entityType as keyof typeof errors] && (
+              <p className="text-red-500 text-sm">{errors[entityType as keyof typeof errors]?.message}</p>
             )}
           </div>
           <DrawerFooter>
