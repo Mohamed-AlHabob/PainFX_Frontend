@@ -5,12 +5,8 @@ export default function Home() {
   return (
     <>
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <div className="dark:hidden">
-          <Logo width={250} height={250} className="mb-4" />
-        </div>
-        <div className="hidden dark:block">
-          <LogoDark width={250} height={250} className="mb-4" />
-        </div>
+        <Logo className="dark:hidden" width={250} height={250} aria-hidden="true" />
+        <LogoDark className="hidden dark:block" width={250} height={250} aria-hidden="true" />
         <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
           <li className="mb-2">
             Get started by sign up{" "}

@@ -10,9 +10,8 @@ export function ModeToggle() {
   const { setTheme } = useTheme();
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 border border-input bg-background shadow-sm max-x-500 rounded-xl flex items-center">
       <div className=" flex justify-between space-x-2">
-      {/* {title && <span className="text-sm">{title}</span>} */}
         {CONSTANTS.modetoggle.map((item) => (
           <ActionTooltip
             key={item.id}
@@ -21,7 +20,7 @@ export function ModeToggle() {
             label={item.label}
           >
             <Button
-              variant="outline"
+              variant={"ghost"}
               size="icon"
               className="h-8 w-8"
               onClick={() => setTheme(item.label.toLowerCase())}

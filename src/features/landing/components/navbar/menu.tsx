@@ -1,4 +1,5 @@
 "use client"
+import { ModeToggle } from "@/components/mode-toggle"
 import { Card, CardContent } from "@/components/ui/card"
 import { CONSTANTS } from "@/constants"
 import { useNavigation } from "@/hooks/navigation"
@@ -10,7 +11,7 @@ type MenuProps = {
   isAuthenticated: boolean
 }
 
-const Menu = ({ orientation, isAuthenticated }: MenuProps) => {
+export function Menu({ orientation, isAuthenticated }: MenuProps) {
   const { section, onSetSection } = useNavigation()
   const menuItems = isAuthenticated
     ? CONSTANTS.landingPageMenu
@@ -19,7 +20,7 @@ const Menu = ({ orientation, isAuthenticated }: MenuProps) => {
   switch (orientation) {
     case "desktop":
       return (
-        <Card className=" bg-clip-padding backdrop--blur__safari backdrop-filter backdrop-blur-2xl bg-opacity-60 p-1 lg:flex hidden rounded-xl">
+        <Card className=" bg-clip-padding backdrop--blur__safari backdrop-filter backdrop-blur-2xl bg-opacity-60 p-1 ml-28 lg:flex hidden rounded-xl">
           <CardContent className="p-0 flex gap-2">
             {menuItems.map((menuItem) => (
               <Link
@@ -64,6 +65,10 @@ const Menu = ({ orientation, isAuthenticated }: MenuProps) => {
               {menuItem.label}
             </Link>
           ))}
+          <div className="flex justify-center items-center mt-96 mx-6">
+            {/* <p>mode</p> */}
+            <ModeToggle />
+          </div>
         </div>
       )
     default:
@@ -71,4 +76,3 @@ const Menu = ({ orientation, isAuthenticated }: MenuProps) => {
   }
 }
 
-export default Menu

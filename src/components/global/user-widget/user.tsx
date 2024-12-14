@@ -89,17 +89,13 @@ export const UserDropDown = () => {
 
         <div className="space-y-4">
           <h3 className="text-sm text-muted-foreground">Preferences</h3>
-          <div>
-          <ModeToggle />
+          <div className="flex justify-between items-center">
+            <p>Theme</p>
+            <ModeToggle />
           </div>
           <SwitchLanguage />
         </div>
-
         <Separator className="my-2" />
-{/* 
-        <Button className="w-full" variant="outline">
-          Upgrade Plan
-        </Button> */}
         <PaymentButton/>
       </div>
     </DropDown>
