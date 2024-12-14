@@ -4,6 +4,9 @@ import MobileNav from "@/features/X/components/mobile-nav"
 import { Navbar } from "@/features/X/components/navbar"
 import Menu from "@/features/X/components/group-navbar";
 import RequireAuth from "@/lib/RequireAuth";
+import GlassSheet from "@/components/global/glass-sheet";
+import { Button } from "@/components/ui/button";
+import { MenuIcon } from "lucide-react";
 type Props = {
   children: React.ReactNode
 }
@@ -19,7 +22,9 @@ const XLayout = async ({ children }: Props) => {
              <LeaderBoardCard />
            </div>
            <div className="lg:col-span-2 flex flex-col gap-y-5 py-5">
-           <Menu orientation="desktop" />
+           <div className=" hidden md:inline">
+             <Menu orientation="desktop" />
+           </div>
           {children}
           </div>
           <div className="col-span-1 hidden lg:inline relative py-5">

@@ -16,14 +16,14 @@ const Menu = ({ orientation }: MenuProps) => {
   switch (orientation) {
     case "desktop":
       return (
-        <Card className="dark:bg-themeGray dark:border-themeGray bg-clip-padding backdrop--blur__safari backdrop-filter backdrop-blur-2xl bg-opacity-60 p-1 lg:flex z-50  lg:sticky lg:top-0 lg:mt-0 rounded-xl overflow-hidden  md:rounded-xl flex items-center justify-center w-fit">
+        <Card className="bg-themeGray border-themeGray bg-clip-padding backdrop--blur__safari backdrop-filter backdrop-blur-2xl bg-opacity-60 p-1 lg:flex z-50  md:rounded-xl  lg:sticky lg:top-0 lg:mt-0 flex overflow-hidden items-center justify-center w-fit">
           <CardContent className="p-0 flex gap-2">
             {CONSTANTS.landingPageMenu.map((menuItem) => (
               <Link
                 href={menuItem.path}
                 onClick={() => onSetSection(menuItem.path)}
                 className={cn(
-                  "rounded-xl flex gap-2 py-2 px-4 items-center",
+                  "rounded-xl flex gap-2 py-2 px-4 items-center text-sm sm:text-base transition-all duration-200 ease-in-out",
                   section == menuItem.path
                     ? "bg-gray-200 dark:bg-[#09090B] dark:border-[#27272A]"
                     : "",

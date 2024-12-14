@@ -4,7 +4,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Logout, Settings } from "@/components/icons";
 import Link from "next/link";
-
 import { DropDown } from "../drop-down";
 import { useLogoutMutation, useRetrieveUserQuery } from "@/redux/services/auth/authApiSlice";
 import { useRouter } from "next/navigation";
@@ -14,29 +13,28 @@ import { SwitchLanguage } from "./Switch-language";
 import { cn } from "@/lib/utils";
 import PaymentButton from "../payment";
 import { Spinner } from "@/components/spinner";
-import { logout } from "@/redux/services/auth/authSlice";
+
 
 export const UserDropDown = () => {
   const { data: user, isLoading,refetch } = useRetrieveUserQuery();
   const router = useRouter();
-  const [Blogout] = useLogoutMutation();
+  const [logout, { isLoading: isLoggingOut }] = useLogoutMutation();
 
   if (isLoading) {
     return <Spinner  />;
   }
 
-  const handleLogout = () => {
-    Blogout()
-      .unwrap()
-      .then(() => {
-        logout();
+  const handleLogout = async () => {
+    try {
+      await logout().unwrap().then(() => {
         router.push("/");
         refetch();
-      })
-      .catch((error) => {
-        console.error("Logout failed:", error);
       });
-      
+      router.push("/");
+      refetch();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   return (
@@ -80,6 +78,7 @@ export const UserDropDown = () => {
           variant="ghost"
           className="w-full justify-start font-normal"
           onClick={handleLogout}
+          disabled={isLoggingOut}
         >
           <Logout />
           Sign Out
