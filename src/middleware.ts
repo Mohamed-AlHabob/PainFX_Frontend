@@ -17,42 +17,40 @@ function matchesDynamicRoute(path: string, routes: string[]): boolean {
 
 export async function middleware(req: NextRequest) {
     const url = req.nextUrl.clone();
-    const accessCookie = req.cookies.get('access');
-    const isLoggedIn = Boolean(accessCookie?.value);
+    const cookies = req.cookies;
+    const isLoggedIn = !!cookies.get('access');
+    console.log('Incoming cookies:', req.headers.get('access'));
+    console.log('Incoming access:', cookies.get('access'));
+    console.log('Incoming isLoggedIn:', isLoggedIn);
 
-    console.log('Cookies in middleware:', req.cookies.getAll());
-
-
-    
 
     const isPublicRoute = matchesDynamicRoute(url.pathname, PUBLIC_ROUTES);
     const isAuthRoute = matchesDynamicRoute(url.pathname, AUTH_ROUTES);
 
+    // If the route is for authentication and user is logged in, redirect to the default login redirect
     if (isAuthRoute) {
         if (isLoggedIn) {
-            return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, url.origin));
+            return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, url));
         }
+        // Allow access to authentication routes for non-logged-in users
         return NextResponse.next();
     }
 
+    // If the route is not public and the user is not logged in, redirect to the login page
     if (!isLoggedIn && !isPublicRoute) {
-        const callbackUrl = `${url.pathname}${url.search || ''}`.replace('//', '/');
-        const fallbackRoute = '/';
-        const validCallbackUrl = callbackUrl.startsWith('/') ? callbackUrl : fallbackRoute;
-
-        return NextResponse.redirect(
-            new URL(`/sign-in?callbackUrl=${encodeURIComponent(validCallbackUrl)}`, url.origin)
-        );
+        const callbackUrl = url.pathname + (url.search || '');
+        const encodedCallbackUrl = encodeURIComponent(callbackUrl);
+        return NextResponse.redirect(new URL(/sign-in?callbackUrl=${encodedCallbackUrl}, url));
     }
 
+    // Allow access if the user is authenticated or if the route is public
     return NextResponse.next();
 }
 
+// Configure middleware to apply to certain routes
 export const config = {
     matcher: [
-      // Skip Next.js internals and all static files, unless found in search params
       '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-      // Always run for API routes
       '/(api|trpc)(.*)',
     ],
   }
