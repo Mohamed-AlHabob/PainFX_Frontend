@@ -23,27 +23,41 @@ export async function middleware(req: NextRequest) {
     const isPublicRoute = matchesDynamicRoute(url.pathname, PUBLIC_ROUTES);
     const isAuthRoute = matchesDynamicRoute(url.pathname, AUTH_ROUTES);
 
-    // If the route is for authentication and user is logged in, redirect to the default login redirect
+    // Debugging logs
+    console.log({
+        pathname: url.pathname,
+        search: url.search,
+        isLoggedIn,
+        isPublicRoute,
+        isAuthRoute,
+    });
+
+    // Redirect logged-in users away from auth routes
     if (isAuthRoute) {
         if (isLoggedIn) {
-            return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, url));
+            return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, url.origin));
         }
-        // Allow access to authentication routes for non-logged-in users
         return NextResponse.next();
     }
 
-    // If the route is not public and the user is not logged in, redirect to the login page
+    // Redirect non-logged-in users to sign-in with a valid callbackUrl
     if (!isLoggedIn && !isPublicRoute) {
-        const callbackUrl = url.pathname + (url.search || '');
-        const encodedCallbackUrl = encodeURIComponent(callbackUrl);
-        return NextResponse.redirect(new URL(`/sign-in?callbackUrl=${encodedCallbackUrl}`, url));
+        const callbackUrl = `${url.pathname}${url.search || ''}`.replace('//', '/');
+        const fallbackRoute = '/';
+        const validCallbackUrl = callbackUrl.startsWith('/') ? callbackUrl : fallbackRoute;
+
+        return NextResponse.redirect(
+            new URL(`/sign-in?callbackUrl=${encodeURIComponent(validCallbackUrl)}`, url.origin)
+        );
     }
 
-    // Allow access if the user is authenticated or if the route is public
+    // Allow access
     return NextResponse.next();
 }
 
+
 // Configure middleware to apply to certain routes
 export const config = {
-    matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+    matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 };
+
