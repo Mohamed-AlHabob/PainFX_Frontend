@@ -5,9 +5,7 @@
  */
 export const PUBLIC_ROUTES: string[] = [
   "/",
-  "/group",
-  "/explore",
-  "/docs",
+  "/about",
   "/password-reset/[uid]/[token]",
   "/activation/[uid]/[token]",
 ];

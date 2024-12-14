@@ -19,11 +19,11 @@ export async function middleware(req: NextRequest) {
     const url = req.nextUrl.clone();
     const cookies = req.cookies;
     const isLoggedIn = !!cookies.get('access');
+    
 
     const isPublicRoute = matchesDynamicRoute(url.pathname, PUBLIC_ROUTES);
     const isAuthRoute = matchesDynamicRoute(url.pathname, AUTH_ROUTES);
 
-    // Debugging logs
     console.log({
         pathname: url.pathname,
         search: url.search,
@@ -32,7 +32,6 @@ export async function middleware(req: NextRequest) {
         isAuthRoute,
     });
 
-    // Redirect logged-in users away from auth routes
     if (isAuthRoute) {
         if (isLoggedIn) {
             return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, url.origin));
@@ -40,7 +39,6 @@ export async function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
-    // Redirect non-logged-in users to sign-in with a valid callbackUrl
     if (!isLoggedIn && !isPublicRoute) {
         const callbackUrl = `${url.pathname}${url.search || ''}`.replace('//', '/');
         const fallbackRoute = '/';
@@ -51,13 +49,23 @@ export async function middleware(req: NextRequest) {
         );
     }
 
-    // Allow access
     return NextResponse.next();
 }
 
 
-// Configure middleware to apply to certain routes
-// export const config = {
-//     matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
-// };
-
+export const config = {
+    matcher: [
+      '/',
+      '/password-reset/:uid/:token',
+      '/activation/:uid/:token',
+      '/sign-in',
+      '/sign-up',
+      '/password-reset',
+      '/activation',
+      '/google',
+      '/X',
+      '/((?!.*\\..*|_next).*)',
+      '/(api|trpc)(.*)',
+    ],
+  };
+  
