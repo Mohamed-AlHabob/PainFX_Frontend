@@ -18,7 +18,7 @@ function matchesDynamicRoute(path: string, routes: string[]): boolean {
 export async function middleware(req: NextRequest) {
     const url = req.nextUrl.clone();
     const cookies = req.cookies;
-    const isLoggedIn = !!cookies.get('access');
+    const isLoggedIn = cookies.get('access');
     console.log('Incoming cookies:', req.headers.get('access'));
     console.log('Incoming access:', cookies.get('access'));
     console.log('Incoming isLoggedIn:', isLoggedIn);
