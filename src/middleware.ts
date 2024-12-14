@@ -23,7 +23,6 @@ export async function middleware(req: NextRequest) {
     console.log('Incoming access:', cookies.get('access'));
     console.log('Incoming isLoggedIn:', isLoggedIn);
 
-
     const isPublicRoute = matchesDynamicRoute(url.pathname, PUBLIC_ROUTES);
     const isAuthRoute = matchesDynamicRoute(url.pathname, AUTH_ROUTES);
 
@@ -40,7 +39,8 @@ export async function middleware(req: NextRequest) {
     if (!isLoggedIn && !isPublicRoute) {
         const callbackUrl = url.pathname + (url.search || '');
         const encodedCallbackUrl = encodeURIComponent(callbackUrl);
-        return NextResponse.redirect(new URL(/sign-in?callbackUrl=${encodedCallbackUrl}, url));
+        // Fixed redirect URL formatting
+        return NextResponse.redirect(new URL(`/sign-in?callbackUrl=${encodedCallbackUrl}`, url));
     }
 
     // Allow access if the user is authenticated or if the route is public
@@ -53,4 +53,4 @@ export const config = {
       '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
       '/(api|trpc)(.*)',
     ],
-  }
+}
