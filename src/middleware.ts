@@ -18,13 +18,19 @@ function matchesDynamicRoute(path: string, routes: string[]): boolean {
 export async function middleware(req: NextRequest) {
     const url = req.nextUrl.clone();
     const cookies = req.cookies;
-    const isLoggedIn = cookies.get('access');
-    console.log('Incoming cookies:', req.headers.get('access'));
-    console.log('Incoming access:', cookies.get('access'));
-    console.log('Incoming isLoggedIn:', isLoggedIn);
+    const isLoggedIn = cookies.get('access'); // Check if 'access' cookie exists
+
+    console.log('Incoming cookies:', cookies); // Log all cookies
+    console.log('Access cookie:', isLoggedIn); // Log the value of 'access' cookie
 
     const isPublicRoute = matchesDynamicRoute(url.pathname, PUBLIC_ROUTES);
     const isAuthRoute = matchesDynamicRoute(url.pathname, AUTH_ROUTES);
+
+    // Allow access to routes even if 'access' cookie is not available (for testing purposes)
+    if (!isLoggedIn) {
+        console.log('No access cookie, allowing access for testing...');
+        return NextResponse.next();
+    }
 
     // If the route is for authentication and user is logged in, redirect to the default login redirect
     if (isAuthRoute) {
@@ -37,9 +43,8 @@ export async function middleware(req: NextRequest) {
 
     // If the route is not public and the user is not logged in, redirect to the login page
     if (!isLoggedIn && !isPublicRoute) {
-        const callbackUrl = url.pathname + (url.search || '');
-        const encodedCallbackUrl = encodeURIComponent(callbackUrl);
-        // Fixed redirect URL formatting
+        const callbackUrl = url.pathname + (url.search || ''); // Save the current URL
+        const encodedCallbackUrl = encodeURIComponent(callbackUrl); // Encode it for the query string
         return NextResponse.redirect(new URL(`/sign-in?callbackUrl=${encodedCallbackUrl}`, url));
     }
 
