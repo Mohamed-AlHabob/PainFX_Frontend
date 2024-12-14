@@ -17,22 +17,16 @@ function matchesDynamicRoute(path: string, routes: string[]): boolean {
 
 export async function middleware(req: NextRequest) {
     const url = req.nextUrl.clone();
-    const cookies = req.cookies;
-    const isLoggedIn = !!cookies.get('access');
+    const accessCookie = req.cookies.get('access');
+    const isLoggedIn = Boolean(accessCookie?.value);
+
+    console.log('Cookies in middleware:', req.cookies.getAll());
+
+
     
 
     const isPublicRoute = matchesDynamicRoute(url.pathname, PUBLIC_ROUTES);
     const isAuthRoute = matchesDynamicRoute(url.pathname, AUTH_ROUTES);
-
-    console.log({
-        pathname: url.pathname,
-        search: url.search,
-        isLoggedIn,
-        isPublicRoute,
-        isAuthRoute,
-    });
-    console.log(url.pathname)
-    console.log(url.search)
 
     if (isAuthRoute) {
         if (isLoggedIn) {
