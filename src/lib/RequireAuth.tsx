@@ -19,7 +19,7 @@ export default function RequireAuth({ children }: Props) {
 		);
 	}
 
-	if (!isAuthenticated) {
+	if (!isLoading && !isAuthenticated) {
 		redirect('/sign-in');
 	}
 
