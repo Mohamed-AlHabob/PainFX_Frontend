@@ -6,12 +6,14 @@ import Menu from "@/features/X/components/group-navbar";
 import GlassSheet from "@/components/global/glass-sheet";
 import { Button } from "@/components/ui/button";
 import { MenuIcon } from "lucide-react";
+import { RequireAuth } from "@/lib/RequireAuth"
 type Props = {
   children: React.ReactNode
 }
 
 const XLayout = async ({ children }: Props) => {
   return (
+    <RequireAuth>
       <div className="flex h-screen md:pt-5">
         <div className="md:ml-auto flex flex-col flex-1  bg-[#f1fff1] dark:bg-[#101011] md:rounded-tl-xl overflow-y-auto border-l-[1px] border-t-[1px] border-[#28282D]">
           <Navbar />
@@ -32,6 +34,7 @@ const XLayout = async ({ children }: Props) => {
           <MobileNav />
         </div>
       </div>
+      </RequireAuth>
   )
 }
 
